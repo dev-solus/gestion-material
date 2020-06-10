@@ -10,28 +10,28 @@
 
       <form [formGroup]="myForm">
         <mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>question</mat-label>
-                    <input matInput formControlName="question" required>
-                </mat-form-field>
+          <mat-label>question</mat-label>
+          <input matInput formControlName="question" required>
+        </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>dateCreation</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="dateCreation">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
+        <mat-form-field appearance="fill" class="col-md-6">
+          <mat-label>dateCreation</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="dateCreation">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>priorite</mat-label>
-                    <input matInput formControlName="priorite" required>
-                </mat-form-field>
+        <mat-form-field appearance="fill" class="col-md-6">
+          <mat-label>priorite</mat-label>
+          <input matInput formControlName="priorite" required>
+        </mat-form-field>
 
-<mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>collaborateurs</mat-label>
-                    <mat-select formControlName="idCollaborateur" readonly>
-                        <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+        <mat-form-field appearance="fill" class="col-md-6">
+          <mat-label>collaborateurs</mat-label>
+          <mat-select formControlName="idCollaborateur" readonly>
+            <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
 
       </form>
@@ -40,7 +40,8 @@
 
     <mat-dialog-actions align="end">
       <button mat-button (click)="onNoClick()" type="button">Annuler</button>
-      <button mat-raised-button color="primary" (click)="onOkClick(myForm.value)" [disabled]="myForm.invalid" cdkFocusInitial>Enregistre</button>
+      <button mat-raised-button color="primary" (click)="onOkClick(myForm.value)" [disabled]="myForm.invalid"
+        cdkFocusInitial>Enregistre</button>
     </mat-dialog-actions>
   </div>
 </div>
