@@ -48,6 +48,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+  displayName(u: User) {
+    return u.userName !== '' ? u.userName : u.email.substring(0, u.email.indexOf('@')) ;
+  }
+
   onNoClick(): void {
     // this.dialogRef.close();
   }

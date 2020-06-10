@@ -16,15 +16,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
   o: User;
   title = '';
   services = this.uow.services.get();
-fonctions = this.uow.fonctions.get();
-roles = this.uow.roles.get();
+  fonctions = this.uow.fonctions.get();
+  roles = this.uow.roles.get();
 
 
-  
+
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -36,7 +36,7 @@ roles = this.uow.roles.get();
     /*{imagesFrom}*/
 
     setTimeout(() => {
-       /*{imagesTo}*/
+      /*{imagesTo}*/
     }, 100);
   }
 
@@ -48,12 +48,12 @@ roles = this.uow.roles.get();
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.users.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.users.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }
@@ -63,18 +63,18 @@ roles = this.uow.roles.get();
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-nom: [this.o.nom, [Validators.required, ]],
-matricule: [this.o.matricule, [Validators.required, ]],
-prenom: [this.o.prenom, [Validators.required, ]],
-email: [this.o.email, [Validators.required, Validators.email]],
-password: [this.o.password, [Validators.required, ]],
-codeOfVerification: [this.o.codeOfVerification, [Validators.required, ]],
-emailVerified: [this.o.emailVerified, [Validators.required, Validators.email]],
-isActive: [this.o.isActive, [Validators.required, ]],
-idService: [this.o.idService, [Validators.required, ]],
-idFonction: [this.o.idFonction, [Validators.required, ]],
-idRole: [this.o.idRole, [Validators.required, ]],
+      id: [this.o.id, [Validators.required,]],
+      nom: [this.o.nom, [Validators.required,]],
+      matricule: [this.o.matricule, [Validators.required,]],
+      prenom: [this.o.prenom, [Validators.required,]],
+      email: [this.o.email, [Validators.required, Validators.email]],
+      password: [this.o.password, [Validators.required,]],
+      codeOfVerification: [this.o.codeOfVerification, [Validators.required,]],
+      emailVerified: [this.o.emailVerified, [Validators.required, Validators.email]],
+      isActive: [this.o.isActive, [Validators.required,]],
+      idService: [this.o.idService, [Validators.required,]],
+      idFonction: [this.o.idFonction, [Validators.required,]],
+      idRole: [this.o.idRole, [Validators.required,]],
 
     });
   }

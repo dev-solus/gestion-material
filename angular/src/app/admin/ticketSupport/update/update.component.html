@@ -38,9 +38,27 @@
 
       <div *ngFor="let e of chats; let i=index" class="mb-2">
         <mat-card>
+          {{displayName(userToSend)}}
           {{e | json}}
         </mat-card>
       </div>
+
+      <form [formGroup]="myForm">
+        <div class="row row-7">
+          <div class="col-xs-9 col-sm-7 col-md-8">
+            <input type="text" class="input-text" formControlName="message"
+              [placeholder]="('admin.vacancier.chat.placeHolder' | translate) + ' ' + displayName(userToSend)"
+              style="width: 100%;">
+          </div>
+
+          <div class="col-xs-3 col-sm-5 col-md-4">
+            <button class="button fill with-icon" (click)="submit(myForm.value)" [disabled]="myForm.invalid">
+              <span><span><span class="icone-left icon-send"></span> <span
+                    class="hidden-xs">{{ 'admin.vacancier.chat.Envoyer' | translate }}</span></span></span>
+            </button>
+          </div>
+        </div>
+      </form>
 
     </mat-dialog-content>
 
