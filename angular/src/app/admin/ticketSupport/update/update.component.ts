@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TicketSupport, Chat } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionService } from 'src/app/shared';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
@@ -14,7 +15,11 @@ export class UpdateComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   myForm: FormGroup;
+  myFormChat: FormGroup;
+
   o = new TicketSupport();
+  idTicket = 0;
+  chat = new Chat();
   title = '';
   chats: Chat[] = [];
   collaborateurs = this.uow.users.get();
@@ -29,26 +34,29 @@ export class UpdateComponent implements OnInit, OnDestroy {
   constructor(
     // public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     private route: ActivatedRoute, private fb: FormBuilder
-    , private uow: UowService, private router: Router) { }
+    , private uow: UowService, private router: Router
+    , private session: SessionService) { }
 
   ngOnInit() {
     this.createForm();
-    const id = +this.route.snapshot.paramMap.get('id');
-    if (id !== 0) {
-      this.uow.ticketSupports.getOne(id).subscribe(r => {
+    this.createFormChat();
+    this.idTicket = +this.route.snapshot.paramMap.get('id');
+    if (this.idTicket !== 0) {
+      this.uow.ticketSupports.getOne(this.idTicket).subscribe(r => {
         this.o = r as TicketSupport;
         console.log(this.o);
         this.title = 'Modifier TicketSupport';
         this.createForm();
+        this.createFormChat();
 
-        this.uow.chats.getByTicket(id).subscribe(r => {
+        this.uow.chats.getByTicket(this.idTicket).subscribe(r => {
           this.chats = r as any;
         });
       });
     }
   }
 
-  displayName(u: User) {
+  displayName(u: any) {
     return u.userName !== '' ? u.userName : u.email.substring(0, u.email.indexOf('@')) ;
   }
 
@@ -80,8 +88,23 @@ export class UpdateComponent implements OnInit, OnDestroy {
       dateCreation: [this.o.dateCreation, [Validators.required,]],
       priorite: [this.o.priorite, [Validators.required,]],
       idCollaborateur: [this.o.idCollaborateur, [Validators.required,]],
-
     });
+  }
+
+  createFormChat() {
+    this.myFormChat = this.fb.group({
+      id: [this.chat.id, [Validators.required,]],
+      idSender: [this.session.user.id, [Validators.required,]],
+      idReceiver: [this.chat.idReceiver],
+      message: [this.chat.message, [Validators.required,]],
+      vu: [this.chat.vu, [Validators.required,]],
+      date: [this.chat.date, [Validators.required,]],
+      idTicketSupport: [this.idTicket, [Validators.required,]],
+    });
+  }
+
+  send(o: Chat) {
+    console.log(o);
   }
 
   resetForm() {

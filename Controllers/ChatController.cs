@@ -57,7 +57,19 @@ namespace Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByTicket(int id)
         {
-            return Ok(await _context.Chats.Where(e => e.IdTicketSupport == id).ToListAsync());
+            var list = await _context.Chats
+                .Where(e => e.IdTicketSupport == id)
+                .Select(e => new{
+                    Id = e.Id,
+                    Message = e.Message,
+                    Vu = e.Vu,
+                    Date = e.Date,
+                    IdSender = e.IdSender,
+                    Sender = e.Sender.Nom,
+                })
+                .ToListAsync()
+                ;
+            return Ok(list);
         }
 
     }

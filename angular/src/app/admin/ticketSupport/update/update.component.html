@@ -38,34 +38,29 @@
 
       <div *ngFor="let e of chats; let i=index" class="mb-2">
         <mat-card>
-          {{displayName(userToSend)}}
-          {{e | json}}
+
+          <div class="d-flex justify-content-between w-100">
+            <span>{{e.sender}}</span>
+            <span class="text-muted" style="font-size: .8em;">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
+          </div>
+
+          <p>{{e.message}}</p>
+          <!-- {{displayName(userToSend)}} -->
+          <!-- {{e | json}} -->
         </mat-card>
       </div>
 
-      <form [formGroup]="myForm">
-        <div class="row row-7">
-          <div class="col-xs-9 col-sm-7 col-md-8">
-            <input type="text" class="input-text" formControlName="message"
-              [placeholder]="('admin.vacancier.chat.placeHolder' | translate) + ' ' + displayName(userToSend)"
-              style="width: 100%;">
-          </div>
-
-          <div class="col-xs-3 col-sm-5 col-md-4">
-            <button class="button fill with-icon" (click)="submit(myForm.value)" [disabled]="myForm.invalid">
-              <span><span><span class="icone-left icon-send"></span> <span
-                    class="hidden-xs">{{ 'admin.vacancier.chat.Envoyer' | translate }}</span></span></span>
-            </button>
-          </div>
-        </div>
+      <form [formGroup]="myFormChat">
+        <mat-form-field appearance="fill" class="col-md-12">
+          <mat-label>Message</mat-label>
+          <input matInput formControlName="message" required>
+          <button mat-icon-button matSuffix (click)="send(myFormChat.value)">
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-form-field>
       </form>
 
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onNoClick()" type="button">Annuler</button>
-      <button mat-raised-button color="primary" (click)="onOkClick(myForm.value)" [disabled]="myForm.invalid"
-        cdkFocusInitial>Enregistre</button>
-    </mat-dialog-actions>
   </div>
 </div>

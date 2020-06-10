@@ -25,7 +25,7 @@ export class TicketSupport {
 export class Chat {
     id = 0;
     idSender = 0;
-    idReceiver = 0;
+    idReceiver = null;
     message = '';
     vu = false;
     date = new Date();
@@ -93,7 +93,7 @@ export class Equipement {
     idCategorie = 0;
     idStatut = 0;
     idFournisseur = 0;
-    
+
     constucteur = new Constucteur();
     categorie = new Categorie();
     fournisseur = new Fournisseur();
@@ -114,7 +114,7 @@ export class Emplacement {
     description = '';
     idDepartement = 0;
     departement = new Departement();
-    emplacementAffectations: Affectation[] = []; 
+    emplacementAffectations: Affectation[] = [];
 }
 
 export class Fournisseur {
