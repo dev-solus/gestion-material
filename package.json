@@ -17,6 +17,7 @@
     "push": "git add . && git commit -m \"commit\" && git push -u origin master",
     "git-login": "git config --global user.email",
     "git": "npm run f-git-cm && npm run b-git-cm",
+    "check-origin": "git remote -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
