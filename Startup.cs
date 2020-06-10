@@ -131,7 +131,7 @@ namespace Api
 
             services.AddDbContext<MyContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("db"));
+                options.UseSqlServer(Configuration.GetConnectionString("msi"));
                 // options.UseSqlite(Configuration.GetConnectionString("sqlite"));
             });
 

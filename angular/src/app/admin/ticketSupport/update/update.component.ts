@@ -2,7 +2,7 @@ import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TicketSupport } from 'src/app/models/models';
+import { TicketSupport, Chat } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -16,6 +16,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
   myForm: FormGroup;
   o = new TicketSupport();
   title = '';
+  chats: Chat[] = [];
   collaborateurs = this.uow.users.get();
 
 
@@ -39,6 +40,10 @@ export class UpdateComponent implements OnInit, OnDestroy {
         console.log(this.o);
         this.title = 'Modifier TicketSupport';
         this.createForm();
+
+        this.uow.chats.getByTicket(id).subscribe(r => {
+          this.chats = r as any;
+        });
       });
     }
   }

@@ -36,6 +36,12 @@
 
       </form>
 
+      <div *ngFor="let e of chats; let i=index" class="mb-2">
+        <mat-card>
+          {{e | json}}
+        </mat-card>
+      </div>
+
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">

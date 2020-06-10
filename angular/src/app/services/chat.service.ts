@@ -16,4 +16,8 @@ export class ChatService extends SuperService<Chat> {
     return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${idSender}/${idReceiver}/${message}/${idTicketSupport}`);
   }
 
+  getByTicket(id) {
+    return this.http.get(`${this.urlApi}/${this.controller}/getByTicket/${id}`);
+  }
+
 }

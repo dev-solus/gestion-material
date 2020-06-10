@@ -16,17 +16,17 @@ namespace Controllers
     [ApiController]
     public class ChatsController : SuperController<Chat>
     {
-        public ChatsController(MyContext context ) : base(context)
+        public ChatsController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{idSender}/{idReceiver}/{message}/{idTicketSupport}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , int idSender, int idReceiver, string message, int idTicketSupport)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, int idSender, int idReceiver, string message, int idTicketSupport)
         {
             var q = _context.Chats
                 .Where(e => idSender == 0 ? true : e.IdSender == idSender)
-.Where(e => idReceiver == 0 ? true : e.IdReceiver == idReceiver)
-.Where(e => message == "*" ? true : e.Message.ToLower().Contains(message.ToLower()))
-.Where(e => idTicketSupport == 0 ? true : e.IdTicketSupport == idTicketSupport)
+                .Where(e => idReceiver == 0 ? true : e.IdReceiver == idReceiver)
+                .Where(e => message == "*" ? true : e.Message.ToLower().Contains(message.ToLower()))
+                .Where(e => idTicketSupport == 0 ? true : e.IdTicketSupport == idTicketSupport)
 
                 ;
 
@@ -35,22 +35,29 @@ namespace Controllers
             var list = await q.OrderByName<Chat>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-sender = e.Sender.Nom,
-receiver = e.Receiver.Nom,
-message = e.Message,
-vu = e.Vu,
-date = e.Date,
-ticketSupport = e.TicketSupport.Question,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    sender = e.Sender.Nom,
+                    receiver = e.Receiver.Nom,
+                    message = e.Message,
+                    vu = e.Vu,
+                    date = e.Date,
+                    ticketSupport = e.TicketSupport.Question,
+
+                })
                 .ToListAsync()
                 ;
 
             return Ok(new { list = list, count = count });
+        }
+
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByTicket(int id)
+        {
+            return Ok(await _context.Chats.Where(e => e.IdTicketSupport == id).ToListAsync());
         }
 
     }
