@@ -1,0 +1,59 @@
+<div class="dialog">
+  <h1 mat-dialog-title>
+    <mat-toolbar role="toolbar" class="task-header">
+      <span>{{title}}</span>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+  </h1>
+  <div class="content">
+    <mat-dialog-content>
+
+      <form [formGroup]="myForm">
+        <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>senders</mat-label>
+                    <mat-select formControlName="idSender" readonly>
+                        <mat-option *ngFor="let e of senders | async" [value]="e.id">{{ e.nom }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+<mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>receivers</mat-label>
+                    <mat-select formControlName="idReceiver" readonly>
+                        <mat-option *ngFor="let e of receivers | async" [value]="e.id">{{ e.nom }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+<mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>message</mat-label>
+                    <input matInput formControlName="message" required>
+                </mat-form-field>
+
+<mat-checkbox class="col-md-6" formControlName="vu"  labelPosition="before" >
+                    Activer
+                </mat-checkbox>
+
+<mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>date</mat-label>
+                    <input matInput [matDatepicker]="picker5" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                    <mat-datepicker #picker5></mat-datepicker>
+                </mat-form-field>
+
+<mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>ticketSupports</mat-label>
+                    <mat-select formControlName="idTicketSupport" readonly>
+                        <mat-option *ngFor="let e of ticketSupports | async" [value]="e.id">{{ e.question }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+      </form>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onNoClick()" type="button">Annuler</button>
+      <button mat-raised-button color="primary" (click)="onOkClick(myForm.value)" [disabled]="myForm.invalid" cdkFocusInitial>Enregistre</button>
+    </mat-dialog-actions>
+  </div>
+</div>

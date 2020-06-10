@@ -1,0 +1,151 @@
+<app-title title="Users"></app-title>
+
+<div class="d-flex flex-row-reverse mt-3 mb-3">
+  <button mat-raised-button color="primary" (click)="add()">
+    <mat-icon>add</mat-icon> User
+  </button>
+  &nbsp;
+  <button mat-raised-button color="accent" (click)="generateExcel()">
+    <mat-icon>cloud_download</mat-icon> Excel
+  </button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel expanded (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="d-flex align-items-center">
+        <mat-icon>search</mat-icon>
+        <p class="mb-0 ml-2">Recherche</p>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-divider> </mat-divider>
+
+    <div class="mt-2">
+      <mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>nom</mat-label>
+                    <input matInput [formControl]="nom" required>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>matricule</mat-label>
+                    <input matInput [formControl]="matricule" required>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>prenom</mat-label>
+                    <input matInput [formControl]="prenom" required>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>email</mat-label>
+                    <input matInput [formControl]="email" required>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>codeOfVerification</mat-label>
+                    <input matInput [formControl]="codeOfVerification" required>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>services</mat-label>
+                    <mat-select [formControl]="idService" readonly>
+                        <mat-option *ngFor="let e of services | async" [value]="e.id">{{ e.nom }}</mat-option>
+                    </mat-select>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>fonctions</mat-label>
+                    <mat-select [formControl]="idFonction" readonly>
+                        <mat-option *ngFor="let e of fonctions | async" [value]="e.id">{{ e.nom }}</mat-option>
+                    </mat-select>
+                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
+                    <mat-label>roles</mat-label>
+                    <mat-select [formControl]="idRole" readonly>
+                        <mat-option *ngFor="let e of roles | async" [value]="e.id">{{ e.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    </div>
+
+    <div class="d-flex flex-row-reverse mb-2 mr-2">
+      <button mat-raised-button (click)="reset()">
+        <mat-icon>refresh</mat-icon>
+        Réinitialiser
+      </button>
+      &nbsp;&nbsp;
+      <button mat-raised-button color="primary" (click)="search()">
+        <mat-icon>search</mat-icon>
+        Rechercher
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div class="example-container mat-elevation-z8 mt-3">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="example-table-container">
+    <table mat-table #table [dataSource]="dataSource" multiTemplateDataRows aria-label="Elements" matSort>
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selectedList.length !== 0 && isAllSelected()"
+            [indeterminate]="selectedList.length !== 0 && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null" [checked]="isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="nom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+                    <td mat-cell *matCellDef="let row">{{row.nom}}</td>
+                </ng-container><ng-container matColumnDef="matricule">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Matricule</th>
+                    <td mat-cell *matCellDef="let row">{{row.matricule}}</td>
+                </ng-container><ng-container matColumnDef="prenom">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Prenom</th>
+                    <td mat-cell *matCellDef="let row">{{row.prenom}}</td>
+                </ng-container><ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                    <td mat-cell *matCellDef="let row">{{row.email}}</td>
+                </ng-container><ng-container matColumnDef="codeOfVerification">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Code Of Verification</th>
+                    <td mat-cell *matCellDef="let row">{{row.codeOfVerification}}</td>
+                </ng-container><ng-container matColumnDef="emailVerified">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email Verified</th>
+                    <td mat-cell *matCellDef="let row">{{row.emailVerified ? 'Oui' : 'Non'}}</td>
+                </ng-container><ng-container matColumnDef="isActive">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
+                    <td mat-cell *matCellDef="let row">{{row.isActive ? 'Oui' : 'Non'}}</td>
+                </ng-container><ng-container matColumnDef="service">
+                    <th mat-header-cell *matHeaderCellDef >Service</th>
+                    <td mat-cell *matCellDef="let row">{{row.service}}</td>
+                </ng-container><ng-container matColumnDef="fonction">
+                    <th mat-header-cell *matHeaderCellDef >Fonction</th>
+                    <td mat-cell *matCellDef="let row">{{row.fonction}}</td>
+                </ng-container><ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef >Role</th>
+                    <td mat-cell *matCellDef="let row">{{row.role}}</td>
+                </ng-container>
+      <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
+        <th mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="warn" [disabled]="selectedList.length === 0" (click)="deleteList()">
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <div class="button-row">
+            <button mat-icon-button color="primary" (click)="edit(row)">
+              <mat-icon>create</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="delete(row.id)">
+              <mat-icon>delete_sweep</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+
+  <mat-paginator #paginator [length]="resultsLength" pageIndex="0" pageSize="10"
+    [pageSizeOptions]="[10, 25, 50, 100, 250]" showFirstLastButtons>
+  </mat-paginator>
+</div>
