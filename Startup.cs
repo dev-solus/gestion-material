@@ -86,18 +86,18 @@ namespace Api
                /**
                * this just for the sake of signalR
                */
-               options.Events = new JwtBearerEvents
-               {
-                   OnMessageReceived = context =>
-                   {
-                       var accessToken = context.Request.Query["access_token"];
-                       if (string.IsNullOrEmpty(accessToken) == false)
-                       {
-                           context.Token = accessToken;
-                       }
-                       return Task.CompletedTask;
-                   }
-               };
+            //    options.Events = new JwtBearerEvents
+            //    {
+            //        OnMessageReceived = context =>
+            //        {
+            //            var accessToken = context.Request.Query["access_token"];
+            //            if (string.IsNullOrEmpty(accessToken) == false)
+            //            {
+            //                context.Token = accessToken;
+            //            }
+            //            return Task.CompletedTask;
+            //        }
+            //    };
 
                options.RequireHttpsMetadata = false;
                options.SaveToken = true;
@@ -181,7 +181,7 @@ namespace Api
 
             app.UseRouting();
 
-            // app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseStaticFiles();

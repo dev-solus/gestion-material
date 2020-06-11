@@ -29,20 +29,20 @@ export class TicketSupportComponent implements OnInit, OnDestroy {
   dataSource: TicketSupport[] = [];
   selectedList: TicketSupport[] = [];
 
-  displayedColumns = ['select',  'question', 'dateCreation', 'priorite', 'collaborateur', 'option'];
+  displayedColumns = ['select', 'question', 'dateCreation', 'priorite', 'collaborateur', 'option'];
 
   panelOpenState = false;
 
   question = new FormControl('');
-priorite = new FormControl('');
-idCollaborateur = new FormControl(0);
+  priorite = new FormControl('');
+  idCollaborateur = new FormControl(0);
 
 
   collaborateurs = this.uow.users.get();
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) { }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -57,8 +57,8 @@ idCollaborateur = new FormControl(0);
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.question.value === '' ? '*' : this.question.value,
-this.priorite.value === '' ? '*' : this.priorite.value,
-this.idCollaborateur.value === 0 ? 0 : this.idCollaborateur.value,
+          this.priorite.value === '' ? '*' : this.priorite.value,
+          this.idCollaborateur.value === 0 ? 0 : this.idCollaborateur.value,
 
         );
       }
@@ -69,8 +69,8 @@ this.idCollaborateur.value === 0 ? 0 : this.idCollaborateur.value,
 
   reset() {
     this.question.setValue('');
-this.priorite.setValue('');
-this.idCollaborateur.setValue(0);
+    this.priorite.setValue('');
+    this.idCollaborateur.setValue(0);
 
     this.update.next(true);
   }
@@ -83,10 +83,10 @@ this.idCollaborateur.setValue(0);
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, question, priorite, idCollaborateur,) {
-    const sub = this.uow.ticketSupports.getAll(startIndex, pageSize, sortBy, sortDir,  question, priorite, idCollaborateur,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, question, priorite, idCollaborateur, ) {
+    const sub = this.uow.ticketSupports.getAll(startIndex, pageSize, sortBy, sortDir, question, priorite, idCollaborateur).subscribe(
       (r: any) => {
-        console.log(r.list);
+        console.log(r);
         this.dataSource = r.list;
         this.resultsLength = r.count;
         this.isLoadingResults = false;

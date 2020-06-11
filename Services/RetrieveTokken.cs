@@ -15,9 +15,21 @@ namespace Api.Providers
             return int.Parse(RetrieveTokken.GetClaim("unique_name", context));
         }
 
-        public static string GetRoleUser(this HttpContext context)
+        public static int GetRoleUser(this HttpContext context)
         {
-            return RetrieveTokken.GetClaim("role", context);
+            try
+            {
+                var idUser = int.Parse(context.User?.Identity?.Name);
+                var idRole = int.Parse(context.User.Claims.SingleOrDefault(e => e.Type == ClaimTypes.Role)?.Value);
+                // return RetrieveTokken.GetClaim("role", context);
+
+                return idRole;
+            }
+            catch (System.Exception)
+            {
+                return int.Parse(RetrieveTokken.GetClaim("role", context));
+            }
+            
         }
 
         public static int GetPlaceUser(this HttpContext context)

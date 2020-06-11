@@ -28,6 +28,8 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   folderToSaveInServer = 'ticketSupports';
 
+  priorites = ['Normale', 'haute', 'Urgente'];
+
   /*{imagesInit}*/
 
 
@@ -62,6 +64,10 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  isYou(id) {
+    return +id === +this.session.user.id;
   }
 
   scrollToBottom(): void {

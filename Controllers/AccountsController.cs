@@ -152,7 +152,7 @@ namespace Controllers
                     {
                         new Claim(ClaimTypes.Name, user.Id.ToString()),
                         new Claim(ClaimTypes.Email, user.Email),
-                        // new Claim(ClaimTypes.Role, user.Role.ToString()),
+                        new Claim(ClaimTypes.Role, user.IdRole.ToString()),
                     };
 
                 return Ok(new { code = 1, user, token = _tokkenHandler.GenerateTokken(claims) });

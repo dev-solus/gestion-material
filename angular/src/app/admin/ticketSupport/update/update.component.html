@@ -1,65 +1,63 @@
-<div class="dialog">
-  <h1 mat-dialog-title>
-    <mat-toolbar role="toolbar" class="task-header">
-      <span>{{title}}</span>
-    </mat-toolbar>
+<app-title [title]="title"></app-title>
+
+<div class="mt-3">
+
+
+    <form [formGroup]="myForm">
+      <mat-form-field appearance="fill" class="col-md-9">
+        <mat-label>question</mat-label>
+        <input matInput formControlName="question" required>
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="fill" class="col-md-12">
+        <mat-label>dateCreation</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="dateCreation">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field> -->
+
+      <mat-form-field appearance="fill" class="col-md-3">
+        <mat-label>priorite</mat-label>
+        <mat-select formControlName="priorite" readonly>
+          <mat-option *ngFor="let e of priorites" [value]="e">{{ e}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>collaborateurs</mat-label>
+        <mat-select formControlName="idCollaborateur" readonly>
+          <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+
+    </form>
     <mat-divider></mat-divider>
-  </h1>
-  <div class="content">
-    <mat-dialog-content>
+    <div class="chat mt-2" #scrollMe>
+      <mat-card *ngFor="let e of chats; let i=index" class="mb-2" [ngClass]="{'ml': isYou(e.idSender), 'mr': !isYou(e.idSender)}">
 
-      <form [formGroup]="myForm">
-        <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>question</mat-label>
-          <input matInput formControlName="question" required>
-        </mat-form-field>
+        <p>{{e.message}}</p>
 
-        <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>dateCreation</mat-label>
-          <input matInput [matDatepicker]="picker2" formControlName="dateCreation">
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
+        <div class="d-flex flex-row-reverse align-items-center w-100"  style="font-size: .8em; font-style: italic;">
+          <span class="text-muted">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
+          <span class="text-muted">par {{isYou(e.idSender) ? 'vous' : e.sender}} - </span>
+        </div>
 
-        <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>priorite</mat-label>
-          <input matInput formControlName="priorite" required>
-        </mat-form-field>
+        <!-- {{displayName(userToSend)}} -->
+        <!-- {{e | json}} -->
+      </mat-card>
+    </div>
 
-        <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>collaborateurs</mat-label>
-          <mat-select formControlName="idCollaborateur" readonly>
-            <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <form [formGroup]="myFormChat">
+      <mat-form-field appearance="fill" class="col-md-12">
+        <mat-label>Message</mat-label>
+        <input matInput formControlName="message" required>
+        <button mat-icon-button matSuffix (click)="send(myFormChat.value)">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
 
 
-      </form>
-      <div #scrollMe style="height: 60vh;overflow:hidden; overflow-y:scroll;">
-          <mat-card *ngFor="let e of chats; let i=index" class="mb-2">
 
-            <div class="d-flex justify-content-between w-100">
-              <span>{{e.idSender === this.session.user.id ? 'Vous' : e.sender}}</span>
-              <span class="text-muted" style="font-size: .8em;">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
-            </div>
-
-            <p>{{e.message}}</p>
-            <!-- {{displayName(userToSend)}} -->
-            <!-- {{e | json}} -->
-          </mat-card>
-      </div>
-
-      <form [formGroup]="myFormChat">
-        <mat-form-field appearance="fill" class="col-md-12">
-          <mat-label>Message</mat-label>
-          <input matInput formControlName="message" required>
-          <button mat-icon-button matSuffix (click)="send(myFormChat.value)">
-            <mat-icon>send</mat-icon>
-          </button>
-        </mat-form-field>
-      </form>
-
-    </mat-dialog-content>
-
-  </div>
 </div>

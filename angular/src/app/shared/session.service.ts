@@ -58,11 +58,15 @@ export class SessionService {
     }
   }
 
-  get getUser() {
-    return this.user;
+  get isAdmin() {
+    return this.user.idRole === 1;
   }
 
-  get isAdmin() {
-    return true/*this.user.role === ADMIN*/;
+  get isAgentSi() {
+    return this.user.idRole === 2;
+  }
+
+  get isUser() {
+    return this.user.idRole === 3;
   }
 }
