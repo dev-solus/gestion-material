@@ -35,19 +35,18 @@
 
 
       </form>
+      <div #scrollMe style="height: 60vh;overflow:hidden; overflow-y:scroll;">
+          <mat-card *ngFor="let e of chats; let i=index" class="mb-2">
 
-      <div *ngFor="let e of chats; let i=index" class="mb-2">
-        <mat-card>
+            <div class="d-flex justify-content-between w-100">
+              <span>{{e.idSender === this.session.user.id ? 'Vous' : e.sender}}</span>
+              <span class="text-muted" style="font-size: .8em;">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
+            </div>
 
-          <div class="d-flex justify-content-between w-100">
-            <span>{{e.sender}}</span>
-            <span class="text-muted" style="font-size: .8em;">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
-          </div>
-
-          <p>{{e.message}}</p>
-          <!-- {{displayName(userToSend)}} -->
-          <!-- {{e | json}} -->
-        </mat-card>
+            <p>{{e.message}}</p>
+            <!-- {{displayName(userToSend)}} -->
+            <!-- {{e | json}} -->
+          </mat-card>
       </div>
 
       <form [formGroup]="myFormChat">

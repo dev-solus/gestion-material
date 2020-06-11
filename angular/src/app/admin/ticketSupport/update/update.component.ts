@@ -1,5 +1,5 @@
 import { UowService } from 'src/app/services/uow.service';
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TicketSupport, Chat } from 'src/app/models/models';
@@ -11,7 +11,8 @@ import { SessionService } from 'src/app/shared';
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.scss']
 })
-export class UpdateComponent implements OnInit, OnDestroy {
+export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChild('scrollMe', { static: false }) private myScrollContainer: ElementRef;
   subs: Subscription[] = [];
 
   myForm: FormGroup;
@@ -35,7 +36,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
     // public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     private route: ActivatedRoute, private fb: FormBuilder
     , private uow: UowService, private router: Router
-    , private session: SessionService) { }
+    , public session: SessionService) { }
 
   ngOnInit() {
     this.createForm();
@@ -50,10 +51,23 @@ export class UpdateComponent implements OnInit, OnDestroy {
         this.createFormChat();
 
         this.uow.chats.getByTicket(this.idTicket).subscribe(r => {
+          console.log(r);
           this.chats = r as any;
         });
       });
     }
+
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
   displayName(u: any) {
@@ -103,8 +117,15 @@ export class UpdateComponent implements OnInit, OnDestroy {
     });
   }
 
+  onReceiveMessage(o: Chat) {
+    this.chats.push(o);
+  }
+
   send(o: Chat) {
     console.log(o);
+    this.uow.chats.post(o).subscribe(r => {
+      this.chats.push(o);
+    });
   }
 
   resetForm() {

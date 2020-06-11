@@ -59,6 +59,7 @@ namespace Controllers
         {
             var list = await _context.Chats
                 .Where(e => e.IdTicketSupport == id)
+                .OrderBy(e => e.Date)
                 .Select(e => new{
                     Id = e.Id,
                     Message = e.Message,
