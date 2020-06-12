@@ -23,6 +23,7 @@ namespace Controllers
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{question}/{priorite}/{idCollaborateur}")]
         public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string question, string priorite, int idCollaborateur)
         {
+            // var idRole = HttpContext.GetRoleUser();
             var q = _context.TicketSupports
                 .Where(e => question == "*" ? true : e.Question.ToLower().Contains(question.ToLower()))
                 .Where(e => priorite == "*" ? true : e.Priorite.ToLower().Contains(priorite.ToLower()))
@@ -49,7 +50,7 @@ namespace Controllers
                 .ToListAsync()
                 ;
 
-            return Ok(new { list = list, count = count, idRole = HttpContext.GetRoleUser() });
+            return Ok(new { list = list, count = count });
         }
 
     }

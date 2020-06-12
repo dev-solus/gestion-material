@@ -30,6 +30,7 @@ namespace Models
 .RuleFor(o => o.Question, f => f.Lorem.Word())
 .RuleFor(o => o.DateCreation, f => f.Date.Past())
 .RuleFor(o => o.Priorite, f => f.Lorem.Word())
+.RuleFor(o => o.IsClosed, f => f.Random.Bool())
 .RuleFor(o => o.IdCollaborateur, f => f.Random.Number(1, 10))
 ;
             modelBuilder.Entity<TicketSupport>().HasData(faker.Generate(10));
