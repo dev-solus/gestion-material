@@ -15,7 +15,7 @@ namespace Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "1")]
+    //[Authorize(Roles = "1")]
     public class CategoriesController : SuperController<Categorie>
     {
         public CategoriesController(MyContext context) : base(context)

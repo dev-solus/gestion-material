@@ -15,7 +15,7 @@ namespace Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "1, 2")]
+    //[Authorize(Roles = "1, 2")]
     public class FournisseursController : SuperController<Fournisseur>
     {
         public FournisseursController(MyContext context ) : base(context)

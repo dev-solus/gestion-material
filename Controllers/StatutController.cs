@@ -15,7 +15,7 @@ namespace Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "1")]
+    //[Authorize(Roles = "1")]
     public class StatutsController : SuperController<Statut>
     {
         public StatutsController(MyContext context ) : base(context)
