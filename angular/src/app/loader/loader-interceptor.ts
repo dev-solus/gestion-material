@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LoaderService } from './loader.service';
 import { Router } from '@angular/router';
 import { SnackBarService } from './snack-bar.service';
+import { SessionService } from '../shared';
 // import { SessionService } from '../shared';
 
 @Injectable({
@@ -19,10 +20,12 @@ export class LoaderInterceptor implements HttpInterceptor {
   percentage = 0;
 
   constructor(private loaderService: LoaderService, public router: Router
-    , public snackBar: SnackBarService // , private session: SessionService
+    , public snackBar: SnackBarService , private session: SessionService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+
     this.requests.push(req);
     this.calculPercentage(this.requests.length);
     //
@@ -32,7 +35,7 @@ export class LoaderInterceptor implements HttpInterceptor {
       const reqAddedToken = req.clone({
         setHeaders: {
           // 'Content-Type': 'application/json',
-          // Authorization: `Bearer ${this.session.token}`,
+          Authorization: `Bearer ${this.session.token}`,
           // Authorization: `${this.session.token}`,
         }
         // this.headers = new HttpHeaders({

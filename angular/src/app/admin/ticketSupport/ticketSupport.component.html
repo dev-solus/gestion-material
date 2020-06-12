@@ -26,17 +26,19 @@
 
     <div class="mt-2">
       <mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>question</mat-label>
-                    <input matInput [formControl]="question" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>priorite</mat-label>
-                    <input matInput [formControl]="priorite" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>collaborateurs</mat-label>
-                    <mat-select [formControl]="idCollaborateur" readonly>
-                        <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+        <mat-label>question</mat-label>
+        <input matInput [formControl]="question" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>priorite</mat-label>
+        <input matInput [formControl]="priorite" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>collaborateurs</mat-label>
+        <mat-select [formControl]="idCollaborateur" readonly>
+          <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
@@ -62,28 +64,37 @@
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selectedList.length !== 0 && isAllSelected()"
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+            [checked]="selectedList.length !== 0 && isAllSelected()"
             [indeterminate]="selectedList.length !== 0 && !isAllSelected()">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null" [checked]="isSelected(row)">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null"
+            [checked]="isSelected(row)">
           </mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="question">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Question</th>
-                    <td mat-cell *matCellDef="let row">{{row.question}}</td>
-                </ng-container><ng-container matColumnDef="dateCreation">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Creation</th>
-                    <td mat-cell *matCellDef="let row">{{row.dateCreation | date : "dd/MM/yyyy"}}</td>
-                </ng-container><ng-container matColumnDef="priorite">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Priorite</th>
-                    <td mat-cell *matCellDef="let row">{{row.priorite}}</td>
-                </ng-container><ng-container matColumnDef="collaborateur">
-                    <th mat-header-cell *matHeaderCellDef >Collaborateur</th>
-                    <td mat-cell *matCellDef="let row">{{row.collaborateur}}</td>
-                </ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Question</th>
+        <td mat-cell *matCellDef="let row">{{row.question}}</td>
+      </ng-container>
+      <ng-container matColumnDef="dateCreation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Creation</th>
+        <td mat-cell *matCellDef="let row">{{row.dateCreation | date : "dd/MM/yyyy"}}</td>
+      </ng-container>
+      <ng-container matColumnDef="priorite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Priorite</th>
+        <td mat-cell *matCellDef="let row">{{row.priorite}}</td>
+      </ng-container>
+      <ng-container matColumnDef="collaborateur">
+        <th mat-header-cell *matHeaderCellDef>Collaborateur</th>
+        <td mat-cell *matCellDef="let row">{{row.collaborateur}}</td>
+      </ng-container>
+      <ng-container matColumnDef="isClosed">
+        <th mat-header-cell *matHeaderCellDef>isClosed</th>
+        <td mat-cell *matCellDef="let row">{{row.isClosed}}</td>
+      </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>
           <button mat-icon-button color="warn" [disabled]="selectedList.length === 0" (click)="deleteList()">

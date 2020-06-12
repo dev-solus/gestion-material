@@ -18,6 +18,7 @@ export class TicketSupport {
     dateCreation = new Date();
     priorite = '';
     idCollaborateur = 0;
+    isClosed = false;
     collaborateur = new User();
     ticketSupportChats: Chat[] = [];
 }
