@@ -9,11 +9,13 @@ using Models;
 using Api.Providers;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "1, 2")]
     public class FonctionsController : SuperController<Fonction>
     {
         public FonctionsController(MyContext context ) : base(context)

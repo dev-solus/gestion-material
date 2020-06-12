@@ -174,7 +174,10 @@ namespace Api
             }
             else
             {
-                app.Use(async (context, next) =>
+               
+            }
+
+             app.Use(async (context, next) =>
                 {
                     await next();
 
@@ -184,7 +187,6 @@ namespace Api
                         await next();
                     }
                 });
-            }
 
 
 

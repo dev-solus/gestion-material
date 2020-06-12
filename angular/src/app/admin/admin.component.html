@@ -22,29 +22,30 @@
       </div>
 
       <mat-list-item [routerLink]="['/admin/ticketSupport']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>TicketSupport</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/chat']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Chat</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/affectation']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Affectation</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/equipement']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Equipement</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/fournisseur']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Fournisseur</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
+        <mat-icon>code</mat-icon>&nbsp;<span>TicketSupport</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/chat']" routerLinkActive="router-link-active">
+        <mat-icon>code</mat-icon>&nbsp;<span>Chat</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/affectation']" routerLinkActive="router-link-active">
+        <mat-icon>code</mat-icon>&nbsp;<span>Affectation</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/equipement']" routerLinkActive="router-link-active">
+        <mat-icon>code</mat-icon>&nbsp;<span>Equipement</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item [routerLink]="['/admin/fournisseur']" routerLinkActive="router-link-active">
+        <mat-icon>code</mat-icon>&nbsp;<span>Fournisseur</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
 
 
-      <mat-accordion>
+      <mat-accordion *ngIf="session.isAdmin">
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          
           <mat-expansion-panel-header>
             <mat-panel-title>
               Paramétrage
@@ -52,47 +53,45 @@
           </mat-expansion-panel-header>
 
           <mat-list-item [routerLink]="['/admin/fonction']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Fonction</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/service']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Service</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/role']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Role</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>User</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/equipementInfo']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>EquipementInfo</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/emplacement']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Emplacement</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/categorie']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Categorie</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/statut']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Statut</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/constucteur']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Constucteur</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-<mat-list-item [routerLink]="['/admin/departement']" routerLinkActive="router-link-active">
-                        <mat-icon>code</mat-icon>&nbsp;<span>Departement</span>
-                        <mat-divider></mat-divider>
-                    </mat-list-item>
-
-
+            <mat-icon>code</mat-icon>&nbsp;<span>Fonction</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/service']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Service</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/role']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Role</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/user']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>User</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/equipementInfo']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>EquipementInfo</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/emplacement']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Emplacement</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/categorie']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Categorie</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/statut']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Statut</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/constucteur']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Constucteur</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['/admin/departement']" routerLinkActive="router-link-active">
+            <mat-icon>code</mat-icon>&nbsp;<span>Departement</span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
         </mat-expansion-panel>
       </mat-accordion>
       <mat-divider></mat-divider>
