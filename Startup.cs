@@ -26,7 +26,7 @@ namespace Api
             Configuration = configuration;
 
         }
-    
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -86,18 +86,18 @@ namespace Api
                /**
                * this just for the sake of signalR
                */
-            //    options.Events = new JwtBearerEvents
-            //    {
-            //        OnMessageReceived = context =>
-            //        {
-            //            var accessToken = context.Request.Query["access_token"];
-            //            if (string.IsNullOrEmpty(accessToken) == false)
-            //            {
-            //                context.Token = accessToken;
-            //            }
-            //            return Task.CompletedTask;
-            //        }
-            //    };
+               //    options.Events = new JwtBearerEvents
+               //    {
+               //        OnMessageReceived = context =>
+               //        {
+               //            var accessToken = context.Request.Query["access_token"];
+               //            if (string.IsNullOrEmpty(accessToken) == false)
+               //            {
+               //                context.Token = accessToken;
+               //            }
+               //            return Task.CompletedTask;
+               //        }
+               //    };
 
                options.RequireHttpsMetadata = false;
                options.SaveToken = true;
@@ -117,8 +117,8 @@ namespace Api
                 {
                     builder
                    .WithOrigins(
-                       "http://localhost:4201", 
-                       "http://localhost:4200", 
+                       "http://localhost:4201",
+                       "http://localhost:4200",
                        "http://192.168.1.25:4202",
                        "http://192.168.43.238:4202"
                        )
@@ -141,7 +141,7 @@ namespace Api
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-           
+
             services.AddSignalR();
         }
 
@@ -172,8 +172,21 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.Use(async (context, next) =>
+                {
+                    await next();
 
-            
+                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                    {
+                        context.Request.Path = "/index.html";
+                        await next();
+                    }
+                });
+            }
+
+
 
             app.UseCors("CorsPolicy");
             app.UseMiddleware<ErrorHandler>();
@@ -193,17 +206,6 @@ namespace Api
                 // endpoints.MapHub<ChatHub>("/ChatHub");
 
                 // endpoints.MapFallbackToFile("/index.html");
-            });
-
-            app.Use(async (context, next) =>
-            {
-                await next();
-
-                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-                {
-                    context.Request.Path = "/index.html";
-                    await next();
-                }
             });
         }
     }
