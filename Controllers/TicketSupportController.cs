@@ -42,6 +42,7 @@ namespace Controllers
                     question = e.Question,
                     dateCreation = e.DateCreation,
                     priorite = e.Priorite,
+                    isClosed = e.IsClosed,
                     collaborateur = e.Collaborateur.Nom,
 
                 })

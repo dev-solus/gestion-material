@@ -50,6 +50,7 @@ namespace Models
                 entity.Property(e => e.Question);
                 entity.Property(e => e.DateCreation);
                 entity.Property(e => e.Priorite);
+                entity.Property(e => e.IsClosed);
                 entity.Property(e => e.IdCollaborateur);
                 entity.HasOne(d => d.Collaborateur).WithMany(p => p.CollaborateurTicketSupports).HasForeignKey(d => d.IdCollaborateur);
                 entity.HasMany(d => d.TicketSupportChats).WithOne(p => p.TicketSupport).HasForeignKey(d => d.IdTicketSupport).OnDelete(DeleteBehavior.NoAction);

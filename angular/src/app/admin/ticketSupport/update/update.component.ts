@@ -84,7 +84,8 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
     // this.dialogRef.close();
   }
 
-  onOkClick(o: TicketSupport): void {
+  submit(o: TicketSupport): void {
+    console.log(o)
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.ticketSupports.post(o).subscribe(r => {
@@ -107,6 +108,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
       question: [this.o.question, [Validators.required,]],
       dateCreation: [this.o.dateCreation, [Validators.required,]],
       priorite: [this.o.priorite, [Validators.required,]],
+      isClosed: [this.o.isClosed, [Validators.required,]],
       idCollaborateur: [this.o.idCollaborateur, [Validators.required,]],
     });
   }

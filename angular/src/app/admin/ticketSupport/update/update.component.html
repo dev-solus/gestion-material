@@ -4,7 +4,7 @@
 
 
     <form [formGroup]="myForm">
-      <mat-form-field appearance="fill" class="col-md-9">
+      <mat-form-field appearance="fill" class="col-md-8">
         <mat-label>question</mat-label>
         <input matInput formControlName="question" required>
       </mat-form-field>
@@ -16,12 +16,16 @@
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field> -->
 
-      <mat-form-field appearance="fill" class="col-md-3">
+      <mat-form-field appearance="fill" class="col-md-2">
         <mat-label>priorite</mat-label>
         <mat-select formControlName="priorite" readonly>
           <mat-option *ngFor="let e of priorites" [value]="e">{{ e}}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-checkbox class="col-md-2" formControlName="isClosed" labelPosition="before">
+        close
+      </mat-checkbox>
 
       <!-- <mat-form-field appearance="fill" class="col-md-6">
         <mat-label>collaborateurs</mat-label>
@@ -29,6 +33,12 @@
           <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
         </mat-select>
       </mat-form-field> -->
+
+      <div class="d-flex flex-row-reverse mt-3 mb-3">
+        <button mat-raised-button color="primary" (click)="submit(myForm.value)">
+          <mat-icon>add</mat-icon> Valider
+        </button>
+      </div>
 
 
     </form>
