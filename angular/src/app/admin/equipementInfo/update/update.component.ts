@@ -63,7 +63,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
       id: [this.o.id, [Validators.required, ]],
 nSerie: [this.o.nSerie, [Validators.required, ]],
 date: [this.o.date, [Validators.required, ]],
-stringInfo: [this.o.stringInfo, [Validators.required, ]],
+stringInfo: [this.o.infoSystemeHtml, [Validators.required, ]],
 
     });
   }

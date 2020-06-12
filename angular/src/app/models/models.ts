@@ -106,7 +106,8 @@ export class EquipementInfo {
     id = 0;
     nSerie = '';
     date = new Date();
-    stringInfo = '';
+    infoSystemeHtml = '';
+    softwareHtml = '';
 }
 
 export class Emplacement {

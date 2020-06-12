@@ -16,15 +16,15 @@ namespace Controllers
     [ApiController]
     public class EquipementInfosController : SuperController<EquipementInfo>
     {
-        public EquipementInfosController(MyContext context ) : base(context)
+        public EquipementInfosController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nSerie}/{stringInfo}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , string nSerie, string stringInfo)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nSerie, string stringInfo)
         {
             var q = _context.EquipementInfos
                 .Where(e => nSerie == "*" ? true : e.NSerie.ToLower().Contains(nSerie.ToLower()))
-.Where(e => stringInfo == "*" ? true : e.StringInfo.ToLower().Contains(stringInfo.ToLower()))
+                .Where(e => stringInfo == "*" ? true : e.InfoSystemeHtml.ToLower().Contains(stringInfo.ToLower()))
 
                 ;
 
@@ -33,20 +33,38 @@ namespace Controllers
             var list = await q.OrderByName<EquipementInfo>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-nSerie = e.NSerie,
-date = e.Date,
-stringInfo = e.StringInfo,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    nSerie = e.NSerie,
+                    date = e.Date,
+                    stringInfo = e.InfoSystemeHtml,
+
+                })
                 .ToListAsync()
                 ;
 
             return Ok(new { list = list, count = count });
         }
+
+        [HttpPost]
+        public override async Task<ActionResult<EquipementInfo>> Post(EquipementInfo model)
+        {
+            _context.EquipementInfos.Add(model);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return Ok();
+        }
+
 
     }
 }

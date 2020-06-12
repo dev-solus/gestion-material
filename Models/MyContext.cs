@@ -149,7 +149,8 @@ namespace Models
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.NSerie);
                 entity.Property(e => e.Date);
-                entity.Property(e => e.StringInfo);
+                entity.Property(e => e.InfoSystemeHtml);
+                entity.Property(e => e.SoftwareHtml);
             });
 
             modelBuilder.Entity<Emplacement>(entity =>

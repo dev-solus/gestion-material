@@ -16,7 +16,7 @@ namespace Models
                 .CustomInstantiator(f => new EquipementInfo { Id = id++ })
 .RuleFor(o => o.NSerie, f => f.Lorem.Word())
 .RuleFor(o => o.Date, f => f.Date.Past())
-.RuleFor(o => o.StringInfo, f => f.Lorem.Word())
+.RuleFor(o => o.InfoSystemeHtml, f => f.Lorem.Word())
 ;
             modelBuilder.Entity<EquipementInfo>().HasData(faker.Generate(10));
             return modelBuilder;
