@@ -39,7 +39,7 @@ fax = new FormControl('');
 email = new FormControl('');
 
 
-  
+
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
@@ -177,7 +177,7 @@ this.email.setValue('');
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.fournisseurs.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.fournisseurs.deleteRange(this.selectedList.map(e => e.id) as any).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

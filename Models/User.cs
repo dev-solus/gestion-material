@@ -12,8 +12,8 @@ public string Password { get; set; }
 public string CodeOfVerification { get; set; }
 public bool EmailVerified { get; set; }
 public bool IsActive { get; set; }
-public int IdService { get; set; }
-public int IdFonction { get; set; }
+public int? IdService { get; set; }
+public int? IdFonction { get; set; }
 public int IdRole { get; set; }
 public virtual Role Role { get; set; }
 public virtual Service Service { get; set; }

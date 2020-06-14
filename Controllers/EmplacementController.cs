@@ -16,11 +16,11 @@ namespace Controllers
     [ApiController]
     public class EmplacementsController : SuperController<Emplacement>
     {
-        public EmplacementsController(MyContext context ) : base(context)
+        public EmplacementsController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{codeEmplacement}/{idDepartement}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , string codeEmplacement, int idDepartement)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string codeEmplacement, int idDepartement)
         {
             var q = _context.Emplacements
                 .Where(e => codeEmplacement == "*" ? true : e.CodeEmplacement.ToLower().Contains(codeEmplacement.ToLower()))
@@ -33,15 +33,16 @@ namespace Controllers
             var list = await q.OrderByName<Emplacement>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-codeEmplacement = e.CodeEmplacement,
-description = e.Description,
-departement = e.Departement.Nom,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    codeEmplacement = e.CodeEmplacement,
+                    description = e.Description,
+                    departement = e.Departement.Nom,
+                    IdDepartement = e.IdDepartement,
+
+                })
                 .ToListAsync()
                 ;
 

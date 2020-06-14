@@ -29,31 +29,33 @@ export class EquipementComponent implements OnInit, OnDestroy {
   dataSource: Equipement[] = [];
   selectedList: Equipement[] = [];
 
-  displayedColumns = ['select',  'nSerie', 'model', 'dateAchat', 'refAchat', 'etatActuel', 'prixUnitaireHT', 'nInventaire', 'remarques', 'constucteur', 'categorie', 'statut', 'fournisseur', 'option'];
+  displayedColumns = ['select', 'nSerie', 'model', 'dateAchat', 'refAchat', 'etatActuel', 'prixUnitaireHT', 'nInventaire', 'constucteur', 'categorie', 'statut', 'fournisseur', 'option'];
 
   panelOpenState = false;
 
   nSerie = new FormControl('');
-model = new FormControl('');
-refAchat = new FormControl('');
-etatActuel = new FormControl('');
-prixUnitaireHT = new FormControl(0);
-nInventaire = new FormControl('');
-remarques = new FormControl('');
-idConstucteur = new FormControl(0);
-idCategorie = new FormControl(0);
-idStatut = new FormControl(0);
-idFournisseur = new FormControl(0);
+  model = new FormControl('');
+  refAchat = new FormControl('');
+  etatActuel = new FormControl('');
+  prixUnitaireHT = new FormControl(0);
+  nInventaire = new FormControl('');
+  remarques = new FormControl('');
+  idConstucteur = new FormControl(0);
+  idCategorie = new FormControl(0);
+  idStatut = new FormControl(0);
+  idFournisseur = new FormControl(0);
 
 
   constucteurs = this.uow.constucteurs.get();
-categories = this.uow.categories.get();
-statuts = this.uow.statuts.get();
-fournisseurs = this.uow.fournisseurs.get();
+  categories = this.uow.categories.get();
+  statuts = this.uow.statuts.get();
+  fournisseurs = this.uow.fournisseurs.get();
+
+  etats = ['STK', 'OPR'];
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) { }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -68,16 +70,16 @@ fournisseurs = this.uow.fournisseurs.get();
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nSerie.value === '' ? '*' : this.nSerie.value,
-this.model.value === '' ? '*' : this.model.value,
-this.refAchat.value === '' ? '*' : this.refAchat.value,
-this.etatActuel.value === '' ? '*' : this.etatActuel.value,
-this.prixUnitaireHT.value === 0 ? 0 : this.prixUnitaireHT.value,
-this.nInventaire.value === '' ? '*' : this.nInventaire.value,
-this.remarques.value === '' ? '*' : this.remarques.value,
-this.idConstucteur.value === 0 ? 0 : this.idConstucteur.value,
-this.idCategorie.value === 0 ? 0 : this.idCategorie.value,
-this.idStatut.value === 0 ? 0 : this.idStatut.value,
-this.idFournisseur.value === 0 ? 0 : this.idFournisseur.value,
+          this.model.value === '' ? '*' : this.model.value,
+          this.refAchat.value === '' ? '*' : this.refAchat.value,
+          this.etatActuel.value === '' ? '*' : this.etatActuel.value,
+          this.prixUnitaireHT.value === 0 ? 0 : this.prixUnitaireHT.value,
+          this.nInventaire.value === '' ? '*' : this.nInventaire.value,
+          this.remarques.value === '' ? '*' : this.remarques.value,
+          this.idConstucteur.value === 0 ? 0 : this.idConstucteur.value,
+          this.idCategorie.value === 0 ? 0 : this.idCategorie.value,
+          this.idStatut.value === 0 ? 0 : this.idStatut.value,
+          this.idFournisseur.value === 0 ? 0 : this.idFournisseur.value,
 
         );
       }
@@ -88,16 +90,16 @@ this.idFournisseur.value === 0 ? 0 : this.idFournisseur.value,
 
   reset() {
     this.nSerie.setValue('');
-this.model.setValue('');
-this.refAchat.setValue('');
-this.etatActuel.setValue('');
-this.prixUnitaireHT.setValue(0);
-this.nInventaire.setValue('');
-this.remarques.setValue('');
-this.idConstucteur.setValue(0);
-this.idCategorie.setValue(0);
-this.idStatut.setValue(0);
-this.idFournisseur.setValue(0);
+    this.model.setValue('');
+    this.refAchat.setValue('');
+    this.etatActuel.setValue('');
+    this.prixUnitaireHT.setValue(0);
+    this.nInventaire.setValue('');
+    this.remarques.setValue('');
+    this.idConstucteur.setValue(0);
+    this.idCategorie.setValue(0);
+    this.idStatut.setValue(0);
+    this.idFournisseur.setValue(0);
 
     this.update.next(true);
   }
@@ -110,8 +112,8 @@ this.idFournisseur.setValue(0);
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, nSerie, model, refAchat, etatActuel, prixUnitaireHT, nInventaire, remarques, idConstucteur, idCategorie, idStatut, idFournisseur,) {
-    const sub = this.uow.equipements.getAll(startIndex, pageSize, sortBy, sortDir,  nSerie, model, refAchat, etatActuel, prixUnitaireHT, nInventaire, remarques, idConstucteur, idCategorie, idStatut, idFournisseur,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, nSerie, model, refAchat, etatActuel, prixUnitaireHT, nInventaire, remarques, idConstucteur, idCategorie, idStatut, idFournisseur, ) {
+    const sub = this.uow.equipements.getAll(startIndex, pageSize, sortBy, sortDir, nSerie, model, refAchat, etatActuel, prixUnitaireHT, nInventaire, remarques, idConstucteur, idCategorie, idStatut, idFournisseur).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;
@@ -202,7 +204,7 @@ this.idFournisseur.setValue(0);
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.equipements.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.equipements.deleteRange(this.selectedList.map(e => e.id) as any).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

@@ -15,14 +15,15 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-md-6">
+          <mat-label>prenom</mat-label>
+          <input matInput formControlName="prenom" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="col-md-6">
           <mat-label>matricule</mat-label>
           <input matInput formControlName="matricule" required>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>prenom</mat-label>
-          <input matInput formControlName="prenom" required>
-        </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-md-6">
           <mat-label>email</mat-label>
@@ -31,42 +32,42 @@
 
         <mat-form-field appearance="fill" class="col-md-6">
           <mat-label>password</mat-label>
-          <input matInput formControlName="password" required>
+          <input matInput type="password" formControlName="password" required>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-md-6">
-          <mat-label>codeOfVerification</mat-label>
-          <input matInput formControlName="codeOfVerification" required>
+          <mat-label>code verification</mat-label>
+          <input matInput formControlName="codeOfVerification" >
         </mat-form-field>
-
-        <mat-checkbox class="col-md-6" formControlName="emailVerified" labelPosition="before">
-          Activer
-        </mat-checkbox>
-
-        <mat-checkbox class="col-md-6" formControlName="isActive" labelPosition="before">
-          Activer
-        </mat-checkbox>
 
         <mat-form-field appearance="fill" class="col-md-6">
           <mat-label>services</mat-label>
-          <mat-select formControlName="idService" readonly>
+          <mat-select formControlName="idService">
             <mat-option *ngFor="let e of services | async" [value]="e.id">{{ e.nom }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-md-6">
           <mat-label>fonctions</mat-label>
-          <mat-select formControlName="idFonction" readonly>
+          <mat-select formControlName="idFonction">
             <mat-option *ngFor="let e of fonctions | async" [value]="e.id">{{ e.nom }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="col-md-6">
           <mat-label>roles</mat-label>
-          <mat-select formControlName="idRole" readonly>
+          <mat-select formControlName="idRole">
             <mat-option *ngFor="let e of roles | async" [value]="e.id">{{ e.name }}</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <mat-checkbox class="col-md-6" formControlName="emailVerified" labelPosition="before">
+          Email verifie
+        </mat-checkbox>
+
+        <mat-checkbox class="col-md-6" formControlName="isActive" labelPosition="before">
+          Compte activer
+        </mat-checkbox>
 
 
       </form>

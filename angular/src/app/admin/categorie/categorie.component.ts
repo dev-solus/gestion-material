@@ -36,7 +36,7 @@ export class CategorieComponent implements OnInit, OnDestroy {
   nom = new FormControl('');
 
 
-  
+
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
@@ -52,7 +52,7 @@ export class CategorieComponent implements OnInit, OnDestroy {
           startIndex,
           this.paginator.pageSize,
           this.sort.active ? this.sort.active : 'id',
-          this.sort.direction ? this.sort.direction : 'desc',
+          this.sort.direction ? this.sort.direction : 'asc',
           this.nom.value === '' ? '*' : this.nom.value,
 
         );
@@ -166,9 +166,9 @@ export class CategorieComponent implements OnInit, OnDestroy {
   }
 
   async deleteList() {
-    const r = await this.mydialog.openDialog('role').toPromise();
+    const r = await this.mydialog.openDialog('Categorie').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.categories.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.categories.deleteRange(this.selectedList.map(e => e.id) as any).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

@@ -16,11 +16,11 @@ namespace Controllers
     [ApiController]
     public class EquipementsController : SuperController<Equipement>
     {
-        public EquipementsController(MyContext context ) : base(context)
+        public EquipementsController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nSerie}/{model}/{refAchat}/{etatActuel}/{prixUnitaireHT}/{nInventaire}/{remarques}/{idConstucteur}/{idCategorie}/{idStatut}/{idFournisseur}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , string nSerie, string model, string refAchat, string etatActuel, int prixUnitaireHT, string nInventaire, string remarques, int idConstucteur, int idCategorie, int idStatut, int idFournisseur)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nSerie, string model, string refAchat, string etatActuel, int prixUnitaireHT, string nInventaire, string remarques, int idConstucteur, int idCategorie, int idStatut, int idFournisseur)
         {
             var q = _context.Equipements
                 .Where(e => nSerie == "*" ? true : e.NSerie.ToLower().Contains(nSerie.ToLower()))
@@ -42,24 +42,28 @@ namespace Controllers
             var list = await q.OrderByName<Equipement>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-nSerie = e.NSerie,
-model = e.Model,
-dateAchat = e.DateAchat,
-refAchat = e.RefAchat,
-etatActuel = e.EtatActuel,
-prixUnitaireHT = e.PrixUnitaireHT,
-nInventaire = e.NInventaire,
-remarques = e.Remarques,
-constucteur = e.Constucteur.Nom,
-categorie = e.Categorie.Nom,
-statut = e.Statut.Nom,
-fournisseur = e.Fournisseur.Nom,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    nSerie = e.NSerie,
+                    model = e.Model,
+                    dateAchat = e.DateAchat,
+                    refAchat = e.RefAchat,
+                    etatActuel = e.EtatActuel,
+                    prixUnitaireHT = e.PrixUnitaireHT,
+                    nInventaire = e.NInventaire,
+                    remarques = e.Remarques,
+                    IdCategorie = e.IdCategorie,
+                    IdConstucteur = e.IdConstucteur,
+                    IdFournisseur = e.IdFournisseur,
+                    IdStatut = e.IdStatut,
+                    constucteur = e.Constucteur.Nom,
+                    categorie = e.Categorie.Nom,
+                    statut = e.Statut.Nom,
+                    fournisseur = e.Fournisseur.Nom,
+
+                })
                 .ToListAsync()
                 ;
 

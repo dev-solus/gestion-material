@@ -18,11 +18,11 @@ namespace Controllers
     //[Authorize(Roles = "1")]
     public class UsersController : SuperController<User>
     {
-        public UsersController(MyContext context ) : base(context)
+        public UsersController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{matricule}/{prenom}/{email}/{codeOfVerification}/{idService}/{idFonction}/{idRole}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , string nom, string matricule, string prenom, string email, string codeOfVerification, int idService, int idFonction, int idRole)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nom, string matricule, string prenom, string email, string codeOfVerification, int idService, int idFonction, int idRole)
         {
             var q = _context.Users
                 .Where(e => nom == "*" ? true : e.Nom.ToLower().Contains(nom.ToLower()))
@@ -41,23 +41,26 @@ namespace Controllers
             var list = await q.OrderByName<User>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-nom = e.Nom,
-matricule = e.Matricule,
-prenom = e.Prenom,
-email = e.Email,
-password = e.Password,
-codeOfVerification = e.CodeOfVerification,
-emailVerified = e.EmailVerified,
-isActive = e.IsActive,
-service = e.Service.Nom,
-fonction = e.Fonction.Nom,
-role = e.Role.Name,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    nom = e.Nom,
+                    matricule = e.Matricule,
+                    prenom = e.Prenom,
+                    email = e.Email,
+                    password = e.Password,
+                    codeOfVerification = e.CodeOfVerification,
+                    emailVerified = e.EmailVerified,
+                    isActive = e.IsActive,
+                    service = e.Service.Nom,
+                    fonction = e.Fonction.Nom,
+                    role = e.Role.Name,
+                    IdFonction = e.IdFonction,
+                    IdRole = e.IdRole,
+                    IdService = e.IdService,
+
+                })
                 .ToListAsync()
                 ;
 

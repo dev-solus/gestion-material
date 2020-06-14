@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
-import { SnackbarService } from 'src/app/shared/snakebar.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/models';
+import { SnackBarService } from 'src/app/loader/snack-bar.service';
 
 @Component({
   selector: 'app-create',
@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private uow: UowService
     , private router: Router, public session: SessionService
-    , private snackbar: SnackbarService) { }
+    , public snackBar: SnackBarService) { }
 
   async ngOnInit() {
     // test
@@ -29,10 +29,17 @@ export class CreateComponent implements OnInit {
 
   createForm() {
     this.myForm = this.fb.group({
+      id: [this.o.id],
+      nom: [this.o.nom],
+      prenom: [this.o.prenom],
+      matricule: [this.o.matricule],
       email: [this.o.email, [Validators.required, Validators.email]],
       password: [this.o.password, [Validators.required]],
-      id: [this.o.id],
+      codeOfVerification: [this.o.codeOfVerification],
+      emailVerified: [this.o.emailVerified],
       isActive: [this.o.isActive],
+      idService: [null],
+      idFonction: [null],
       idRole: [1],
     });
   }
@@ -56,7 +63,8 @@ export class CreateComponent implements OnInit {
 
   submit(o: User) {
 
-    this.uow.accounts.create(o).subscribe((r: any) => {
+    this.uow.accounts.create('auth/login'.replace(/\//g, '%2F'), o).subscribe((r: any) => {
+      this.snackBar.notifyOk(200, `Lien d'activation a été envoyer a votre email`);
       this.router.navigate(['/auth']);
     });
   }

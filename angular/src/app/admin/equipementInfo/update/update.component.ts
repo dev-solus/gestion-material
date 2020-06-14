@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EquipementInfo } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
@@ -15,26 +16,32 @@ export class UpdateComponent implements OnInit, OnDestroy {
   myForm: FormGroup;
   o: EquipementInfo;
   title = '';
-  
+
 
   folderToSaveInServer = 'equipementInfos';
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
-    , private fb: FormBuilder, private uow: UowService) { }
+    , private fb: FormBuilder, private uow: UowService, protected sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.o = this.data.model;
     this.title = this.data.title;
     this.createForm();
+
+    console.log(this.o)
     /*{imagesFrom}*/
 
     setTimeout(() => {
        /*{imagesTo}*/
     }, 100);
+  }
+
+  sanitizeHtml(p: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(p ? p : '');
   }
 
   onNoClick(): void {
@@ -45,12 +52,12 @@ export class UpdateComponent implements OnInit, OnDestroy {
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.equipementInfos.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.equipementInfos.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }

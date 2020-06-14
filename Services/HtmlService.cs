@@ -4,7 +4,7 @@ namespace Services
 {
     public class HtmlService
     {
-        public async Task<string> GenerateHtmlUser(string action_url, string email, string support_email, string psudo, string lang)
+        public async Task<string> GenerateHtmlUser(string action_url, string support_email, string email, string psudo, string lang)
         {
             var filename = "registration_user.html";
             var strHTML = await System.IO.File.ReadAllTextAsync($"db/{filename}");

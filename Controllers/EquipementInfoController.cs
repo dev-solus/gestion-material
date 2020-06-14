@@ -39,7 +39,8 @@ namespace Controllers
                     id = e.Id,
                     nSerie = e.NSerie,
                     date = e.Date,
-                    stringInfo = e.InfoSystemeHtml,
+                    InfoSystemeHtml = e.InfoSystemeHtml,
+                    SoftwareHtml = e.SoftwareHtml,
 
                 })
                 .ToListAsync()
@@ -51,7 +52,18 @@ namespace Controllers
         [HttpPost]
         public override async Task<ActionResult<EquipementInfo>> Post(EquipementInfo model)
         {
-            _context.EquipementInfos.Add(model);
+            var eq = await _context.EquipementInfos.Where(e => e.NSerie == model.NSerie).FirstOrDefaultAsync();
+
+            if (eq != null)
+            {
+                eq.Date = model.Date;
+                eq.InfoSystemeHtml = model.InfoSystemeHtml;
+                eq.SoftwareHtml = model.SoftwareHtml;
+            }
+            else
+            {
+                _context.EquipementInfos.Add(model);
+            }
 
             try
             {
@@ -62,7 +74,7 @@ namespace Controllers
                 return BadRequest(new { message = ex.Message });
             }
 
-            return Ok();
+            return eq != null ? Ok(new { message = "updated" }) : Ok(new { message = "added" });
         }
 
 

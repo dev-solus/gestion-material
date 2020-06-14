@@ -29,7 +29,7 @@ export class EquipementInfoComponent implements OnInit, OnDestroy {
   dataSource: EquipementInfo[] = [];
   selectedList: EquipementInfo[] = [];
 
-  displayedColumns = ['select',  'nSerie', 'date', 'stringInfo', 'option'];
+  displayedColumns = ['select',  'nSerie', 'date', 'option'];
 
   panelOpenState = false;
 
@@ -37,7 +37,7 @@ export class EquipementInfoComponent implements OnInit, OnDestroy {
 stringInfo = new FormControl('');
 
 
-  
+
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
@@ -171,7 +171,7 @@ this.stringInfo.setValue('');
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.equipementInfos.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.equipementInfos.deleteRange(this.selectedList.map(e => e.id)).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

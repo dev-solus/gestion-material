@@ -26,47 +26,59 @@
 
     <div class="mt-2">
       <mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>nSerie</mat-label>
-                    <input matInput [formControl]="nSerie" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>model</mat-label>
-                    <input matInput [formControl]="model" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>refAchat</mat-label>
-                    <input matInput [formControl]="refAchat" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>etatActuel</mat-label>
-                    <input matInput [formControl]="etatActuel" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>prixUnitaireHT</mat-label>
-                    <input matInput [formControl]="prixUnitaireHT" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>nInventaire</mat-label>
-                    <input matInput [formControl]="nInventaire" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>remarques</mat-label>
-                    <input matInput [formControl]="remarques" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>constucteurs</mat-label>
-                    <mat-select [formControl]="idConstucteur" readonly>
-                        <mat-option *ngFor="let e of constucteurs | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>categories</mat-label>
-                    <mat-select [formControl]="idCategorie" readonly>
-                        <mat-option *ngFor="let e of categories | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>statuts</mat-label>
-                    <mat-select [formControl]="idStatut" readonly>
-                        <mat-option *ngFor="let e of statuts | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>fournisseurs</mat-label>
-                    <mat-select [formControl]="idFournisseur" readonly>
-                        <mat-option *ngFor="let e of fournisseurs | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+        <mat-label>nSerie</mat-label>
+        <input matInput [formControl]="nSerie">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>model</mat-label>
+        <input matInput [formControl]="model">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>refAchat</mat-label>
+        <input matInput [formControl]="refAchat">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>Etat Actuel</mat-label>
+        <mat-select [formControl]="etatActuel" >
+          <mat-option *ngFor="let e of etats" [value]="e">{{ e }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>prixUnitaireHT</mat-label>
+        <input matInput [formControl]="prixUnitaireHT">
+      </mat-form-field> -->
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>nInventaire</mat-label>
+        <input matInput [formControl]="nInventaire">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>remarques</mat-label>
+        <input matInput [formControl]="remarques">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>constucteurs</mat-label>
+        <mat-select [formControl]="idConstucteur" >
+          <mat-option *ngFor="let e of constucteurs | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>categories</mat-label>
+        <mat-select [formControl]="idCategorie" >
+          <mat-option *ngFor="let e of categories | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>statuts</mat-label>
+        <mat-select [formControl]="idStatut" >
+          <mat-option *ngFor="let e of statuts | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>fournisseurs</mat-label>
+        <mat-select [formControl]="idFournisseur" >
+          <mat-option *ngFor="let e of fournisseurs | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
@@ -92,52 +104,65 @@
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selectedList.length !== 0 && isAllSelected()"
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+            [checked]="selectedList.length !== 0 && isAllSelected()"
             [indeterminate]="selectedList.length !== 0 && !isAllSelected()">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null" [checked]="isSelected(row)">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null"
+            [checked]="isSelected(row)">
           </mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="nSerie">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>N Serie</th>
-                    <td mat-cell *matCellDef="let row">{{row.nSerie}}</td>
-                </ng-container><ng-container matColumnDef="model">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
-                    <td mat-cell *matCellDef="let row">{{row.model}}</td>
-                </ng-container><ng-container matColumnDef="dateAchat">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Achat</th>
-                    <td mat-cell *matCellDef="let row">{{row.dateAchat | date : "dd/MM/yyyy"}}</td>
-                </ng-container><ng-container matColumnDef="refAchat">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref Achat</th>
-                    <td mat-cell *matCellDef="let row">{{row.refAchat}}</td>
-                </ng-container><ng-container matColumnDef="etatActuel">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat Actuel</th>
-                    <td mat-cell *matCellDef="let row">{{row.etatActuel}}</td>
-                </ng-container><ng-container matColumnDef="prixUnitaireHT">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Prix Unitaire H T</th>
-                    <td mat-cell *matCellDef="let row">{{row.prixUnitaireHT}}</td>
-                </ng-container><ng-container matColumnDef="nInventaire">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>N Inventaire</th>
-                    <td mat-cell *matCellDef="let row">{{row.nInventaire}}</td>
-                </ng-container><ng-container matColumnDef="remarques">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
-                    <td mat-cell *matCellDef="let row">{{row.remarques}}</td>
-                </ng-container><ng-container matColumnDef="constucteur">
-                    <th mat-header-cell *matHeaderCellDef >Constucteur</th>
-                    <td mat-cell *matCellDef="let row">{{row.constucteur}}</td>
-                </ng-container><ng-container matColumnDef="categorie">
-                    <th mat-header-cell *matHeaderCellDef >Categorie</th>
-                    <td mat-cell *matCellDef="let row">{{row.categorie}}</td>
-                </ng-container><ng-container matColumnDef="statut">
-                    <th mat-header-cell *matHeaderCellDef >Statut</th>
-                    <td mat-cell *matCellDef="let row">{{row.statut}}</td>
-                </ng-container><ng-container matColumnDef="fournisseur">
-                    <th mat-header-cell *matHeaderCellDef >Fournisseur</th>
-                    <td mat-cell *matCellDef="let row">{{row.fournisseur}}</td>
-                </ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>N Serie</th>
+        <td mat-cell *matCellDef="let row">{{row.nSerie}}</td>
+      </ng-container>
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
+        <td mat-cell *matCellDef="let row">{{row.model}}</td>
+      </ng-container>
+      <ng-container matColumnDef="dateAchat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Achat</th>
+        <td mat-cell *matCellDef="let row">{{row.dateAchat | date : "dd/MM/yyyy"}}</td>
+      </ng-container>
+      <ng-container matColumnDef="refAchat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref Achat</th>
+        <td mat-cell *matCellDef="let row">{{row.refAchat}}</td>
+      </ng-container>
+      <ng-container matColumnDef="etatActuel">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat Actuel</th>
+        <td mat-cell *matCellDef="let row">{{row.etatActuel}}</td>
+      </ng-container>
+      <ng-container matColumnDef="prixUnitaireHT">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Prix Unitaire H T</th>
+        <td mat-cell *matCellDef="let row">{{row.prixUnitaireHT}}</td>
+      </ng-container>
+      <ng-container matColumnDef="nInventaire">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>N Inventaire</th>
+        <td mat-cell *matCellDef="let row">{{row.nInventaire}}</td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="remarques">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarques</th>
+        <td mat-cell *matCellDef="let row">{{row.remarques}}</td>
+      </ng-container> -->
+      <ng-container matColumnDef="constucteur">
+        <th mat-header-cell *matHeaderCellDef>Constucteur</th>
+        <td mat-cell *matCellDef="let row">{{row.constucteur}}</td>
+      </ng-container>
+      <ng-container matColumnDef="categorie">
+        <th mat-header-cell *matHeaderCellDef>Categorie</th>
+        <td mat-cell *matCellDef="let row">{{row.categorie}}</td>
+      </ng-container>
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef>Statut</th>
+        <td mat-cell *matCellDef="let row">{{row.statut}}</td>
+      </ng-container>
+      <ng-container matColumnDef="fournisseur">
+        <th mat-header-cell *matHeaderCellDef>Fournisseur</th>
+        <td mat-cell *matCellDef="let row">{{row.fournisseur}}</td>
+      </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>
           <button mat-icon-button color="warn" [disabled]="selectedList.length === 0" (click)="deleteList()">

@@ -11,10 +11,10 @@ export class MyGuard implements CanActivate {
   constructor(private session: SessionService, private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // if (!this.session.isSignedIn) {
-    //   this.router.navigate(['']);
-    //   return false;
-    // }
+    if (!this.session.isSignedIn) {
+      this.router.navigate(['/auth']);
+      return false;
+    }
     return true;
   }
 }

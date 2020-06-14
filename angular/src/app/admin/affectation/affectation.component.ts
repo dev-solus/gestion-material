@@ -184,7 +184,9 @@ this.idAgentSi.setValue(0);
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.affectations.deleteRange(this.selectedList).subscribe(() => {
+      const l = this.selectedList.map(e => e.id);
+      console.log(l)
+      const sub = this.uow.affectations.deleteRange(this.selectedList.map(e => e.id)).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

@@ -37,7 +37,7 @@ export class DepartementComponent implements OnInit, OnDestroy {
 etage = new FormControl('');
 
 
-  
+
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
     , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
@@ -171,7 +171,7 @@ this.etage.setValue('');
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.departements.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.departements.deleteRange(this.selectedList.map(e => e.id) as any).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

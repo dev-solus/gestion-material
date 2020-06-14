@@ -192,7 +192,7 @@ this.idRole.setValue(0);
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.users.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.users.deleteRange(this.selectedList.map(e => e.id) as any).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

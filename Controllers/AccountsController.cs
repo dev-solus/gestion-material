@@ -40,14 +40,30 @@ namespace Controllers
             _emailSettings = emailSettings.Value;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<User>> Create(User model)
+        [HttpPost("{returnUrl}")]
+        public async Task<ActionResult<User>> Create(string returnUrl, User model)
         {
             try
             {
+                model.CodeOfVerification = $"{model.Email}*{DateTime.Now}";
                 
                 _context.Users.Add(model);
                 await _context.SaveChangesAsync();
+
+                string html = "";
+                string lang = "fr";
+                var subject = lang == "fr" ? $"Lien d'activation pour {model.Email}" : $"Activation link for {model.Email}";
+                var activationLink = _accountService.GenerateActivationLink(Request, returnUrl, model.CodeOfVerification);
+
+                html = await this._htmlService.GenerateHtmlUser(
+                        HtmlEncoder.Default.Encode(activationLink)
+                        , _emailSettings.SenderEmail
+                        , $"{model.Email}"
+                        , $"{model.Nom} {model.Prenom}"
+                        , lang
+                    );
+
+                _emailService.SendEmailAsync(model.Email, subject, html);
 
                 
             }
@@ -57,6 +73,40 @@ namespace Controllers
             }
 
             return Ok(model);
+        }
+
+         [HttpGet("{code}")]
+        public async Task<ActionResult<User>> ActiveAccount(string code)
+        {
+            var codeBasic = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var email = codeBasic.Split("*")[0];
+            var user = await _context.Users.SingleOrDefaultAsync(e => e.Email == email);
+
+            if (user.CodeOfVerification != codeBasic)
+            {
+                return Ok(new { message = "code incorrect", code = -1 });
+            }
+
+            user.EmailVerified = true;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+
+                 var claims = new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, user.Id.ToString()),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.Role, user.IdRole.ToString()),
+                    };
+
+                return Ok(new { code = 1, user, token = _tokkenHandler.GenerateTokken(claims) });
+
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         
@@ -155,7 +205,7 @@ namespace Controllers
                         new Claim(ClaimTypes.Role, user.IdRole.ToString()),
                     };
 
-                return Ok(new { code = 1, user, token = _tokkenHandler.GenerateTokken(claims) });
+                return Ok(new { code = 1, user, token = _tokkenHandler.GenerateTokken(claims), message = "connexion réussite" });
             }
 
             return Ok(new { message = "Mot de passe érroné, vous pouvez utiliser l'option de réinitialisation de mot de passe.", code = -1 });

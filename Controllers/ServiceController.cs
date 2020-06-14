@@ -18,11 +18,11 @@ namespace Controllers
     //[Authorize(Roles = "1")]
     public class ServicesController : SuperController<Service>
     {
-        public ServicesController(MyContext context ) : base(context)
+        public ServicesController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nom}/{idDepartement}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , string nom, int idDepartement)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nom, int idDepartement)
         {
             var q = _context.Services
                 .Where(e => nom == "*" ? true : e.Nom.ToLower().Contains(nom.ToLower()))
@@ -35,14 +35,14 @@ namespace Controllers
             var list = await q.OrderByName<Service>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-nom = e.Nom,
-departement = e.Departement.Nom,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    nom = e.Nom,
+                    departement = e.Departement.Nom,
+                    IdDepartement = e.IdDepartement,
+                })
                 .ToListAsync()
                 ;
 

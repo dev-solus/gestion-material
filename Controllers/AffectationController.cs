@@ -16,11 +16,11 @@ namespace Controllers
     [ApiController]
     public class AffectationsController : SuperController<Affectation>
     {
-        public AffectationsController(MyContext context ) : base(context)
+        public AffectationsController(MyContext context) : base(context)
         { }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{action_}/{idEquipement}/{idEmplacement}/{idCollaborateur}/{idAgentSi}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir , string action_, int idEquipement, int idEmplacement, int idCollaborateur, int idAgentSi)
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string action_, int idEquipement, int idEmplacement, int idCollaborateur, int idAgentSi)
         {
             var q = _context.Affectations
                 .Where(e => action_ == "*" ? true : e.Action.ToLower().Contains(action_.ToLower()))
@@ -36,18 +36,22 @@ namespace Controllers
             var list = await q.OrderByName<Affectation>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-                
-                .Select(e => new 
-{
-id = e.Id,
-action = e.Action,
-date = e.Date,
-equipement = e.Equipement.NSerie,
-emplacement = e.Emplacement.CodeEmplacement,
-collaborateur = e.Collaborateur.Nom,
-agentSi = e.AgentSi.Nom,
 
-})
+                .Select(e => new
+                {
+                    id = e.Id,
+                    action = e.Action,
+                    date = e.Date,
+                    equipement = e.Equipement.NSerie,
+                    emplacement = e.Emplacement.CodeEmplacement,
+                    collaborateur = e.Collaborateur.Nom,
+                    agentSi = e.AgentSi.Nom,
+                    IdAgentSi = e.IdAgentSi,
+                    IdCollaborateur = e.IdCollaborateur,
+                    IdEmplacement = e.IdEmplacement,
+                    IdEquipement = e.IdEquipement,
+
+                })
                 .ToListAsync()
                 ;
 

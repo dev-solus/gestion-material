@@ -26,7 +26,8 @@ export class SuperService<T> implements ISuperService {
     return this.http.post(`${this.urlApi}/${this.controller}/updateRange`, o);
   }
 
-  deleteRange(o: T[]) {
+  deleteRange(o: number[]) {
+    console.log(o)
     return this.http.post(`${this.urlApi}/${this.controller}/deleteRange`, o);
   }
 

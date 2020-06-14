@@ -16,16 +16,17 @@ export class UpdateComponent implements OnInit, OnDestroy {
   o: Equipement;
   title = '';
   constucteurs = this.uow.constucteurs.get();
-categories = this.uow.categories.get();
-statuts = this.uow.statuts.get();
-fournisseurs = this.uow.fournisseurs.get();
+  categories = this.uow.categories.get();
+  statuts = this.uow.statuts.get();
+  fournisseurs = this.uow.fournisseurs.get();
 
+  etats = ['STK', 'OPR'];
 
   folderToSaveInServer = 'equipements';
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -37,7 +38,7 @@ fournisseurs = this.uow.fournisseurs.get();
     /*{imagesFrom}*/
 
     setTimeout(() => {
-       /*{imagesTo}*/
+      /*{imagesTo}*/
     }, 100);
   }
 
@@ -49,12 +50,12 @@ fournisseurs = this.uow.fournisseurs.get();
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.equipements.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.equipements.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }
@@ -64,19 +65,19 @@ fournisseurs = this.uow.fournisseurs.get();
 
   createForm() {
     this.myForm = this.fb.group({
-      id: [this.o.id, [Validators.required, ]],
-nSerie: [this.o.nSerie, [Validators.required, ]],
-model: [this.o.model, [Validators.required, ]],
-dateAchat: [this.o.dateAchat, [Validators.required, ]],
-refAchat: [this.o.refAchat, [Validators.required, ]],
-etatActuel: [this.o.etatActuel, [Validators.required, ]],
-prixUnitaireHT: [this.o.prixUnitaireHT, [Validators.required, ]],
-nInventaire: [this.o.nInventaire, [Validators.required, ]],
-remarques: [this.o.remarques, [Validators.required, ]],
-idConstucteur: [this.o.idConstucteur, [Validators.required, ]],
-idCategorie: [this.o.idCategorie, [Validators.required, ]],
-idStatut: [this.o.idStatut, [Validators.required, ]],
-idFournisseur: [this.o.idFournisseur, [Validators.required, ]],
+      id: [this.o.id, [Validators.required,]],
+      nSerie: [this.o.nSerie, [Validators.required,]],
+      model: [this.o.model, [Validators.required,]],
+      dateAchat: [this.o.dateAchat, [Validators.required,]],
+      refAchat: [this.o.refAchat, [Validators.required,]],
+      etatActuel: [this.o.etatActuel, [Validators.required,]],
+      prixUnitaireHT: [this.o.prixUnitaireHT, [Validators.required,]],
+      nInventaire: [this.o.nInventaire, [Validators.required,]],
+      remarques: [this.o.remarques, []],
+      idConstucteur: [this.o.idConstucteur, [Validators.required,]],
+      idCategorie: [this.o.idCategorie, [Validators.required,]],
+      idStatut: [this.o.idStatut, [Validators.required,]],
+      idFournisseur: [this.o.idFournisseur, [Validators.required,]],
 
     });
   }

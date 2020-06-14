@@ -175,7 +175,7 @@ export class TicketSupportComponent implements OnInit, OnDestroy {
   async deleteList() {
     const r = await this.mydialog.openDialog('role').toPromise();
     if (r === 'ok') {
-      const sub = this.uow.ticketSupports.deleteRange(this.selectedList).subscribe(() => {
+      const sub = this.uow.ticketSupports.deleteRange(this.selectedList.map(e => e.id) as any).subscribe(() => {
         this.selectedList = [];
         this.update.next(true);
       });

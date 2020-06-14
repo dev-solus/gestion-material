@@ -16,8 +16,8 @@ export class AccountService extends SuperService<User> {
     return this.http.post(`${this.urlApi}/${this.controller}/login`, model);
   }
 
-  create(model) {
-    return this.http.post(`${this.urlApi}/${this.controller}/create`, model);
+  create(returnUrl, model) {
+    return this.http.post(`${this.urlApi}/${this.controller}/create/${returnUrl}`, model);
   }
 
   sendEmailForResetPassword(email, url, lang) {

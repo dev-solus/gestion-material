@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../shared';
 import { Router, RouterOutlet } from '@angular/router';
 import { slideInAnimation } from '../shared/animations';
+import { MediaService } from '../shared/media.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,9 +12,12 @@ import { slideInAnimation } from '../shared/animations';
 })
 export class AdminComponent implements OnInit {
   panelOpenState = false;
-  constructor(public session: SessionService, private router: Router) { }
+  isMobileWidth = false;
+  constructor(public session: SessionService, private router: Router
+    , public myMedia: MediaService) { }
 
   ngOnInit(): void {
+    this.myMedia.windowSizeChanged.subscribe(r => this.isMobileWidth = r.width <= 700);
   }
 
   disconnect() {
