@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
@@ -14,31 +15,34 @@ namespace apps.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3");
+                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Models.Affectation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Action")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("IdAgentSi")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdCollaborateur")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdEmplacement")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdEquipement")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -57,13 +61,14 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -88,25 +93,26 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("IdReceiver")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdSender")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdTicketSupport")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Message")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Vu")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -117,121 +123,20 @@ namespace apps.Migrations
                     b.HasIndex("IdTicketSupport");
 
                     b.ToTable("Chats");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2019, 12, 17, 1, 28, 21, 987, DateTimeKind.Local).AddTicks(2584),
-                            IdReceiver = 5,
-                            IdSender = 6,
-                            IdTicketSupport = 3,
-                            Message = "voluptate",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2019, 8, 2, 19, 50, 17, 562, DateTimeKind.Local).AddTicks(4801),
-                            IdReceiver = 3,
-                            IdSender = 5,
-                            IdTicketSupport = 10,
-                            Message = "quisquam",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2020, 1, 22, 13, 30, 48, 261, DateTimeKind.Local).AddTicks(359),
-                            IdReceiver = 2,
-                            IdSender = 8,
-                            IdTicketSupport = 2,
-                            Message = "sapiente",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(2019, 9, 23, 4, 58, 0, 744, DateTimeKind.Local).AddTicks(6674),
-                            IdReceiver = 8,
-                            IdSender = 5,
-                            IdTicketSupport = 9,
-                            Message = "sit",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Date = new DateTime(2019, 9, 5, 20, 38, 21, 144, DateTimeKind.Local).AddTicks(404),
-                            IdReceiver = 4,
-                            IdSender = 9,
-                            IdTicketSupport = 8,
-                            Message = "saepe",
-                            Vu = false
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Date = new DateTime(2020, 4, 30, 18, 17, 16, 485, DateTimeKind.Local).AddTicks(1438),
-                            IdReceiver = 10,
-                            IdSender = 9,
-                            IdTicketSupport = 2,
-                            Message = "rerum",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Date = new DateTime(2019, 11, 8, 19, 9, 51, 100, DateTimeKind.Local).AddTicks(5054),
-                            IdReceiver = 9,
-                            IdSender = 4,
-                            IdTicketSupport = 1,
-                            Message = "sit",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Date = new DateTime(2019, 9, 17, 6, 37, 45, 794, DateTimeKind.Local).AddTicks(4141),
-                            IdReceiver = 8,
-                            IdSender = 8,
-                            IdTicketSupport = 2,
-                            Message = "distinctio",
-                            Vu = true
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Date = new DateTime(2019, 8, 14, 4, 54, 56, 20, DateTimeKind.Local).AddTicks(4354),
-                            IdReceiver = 1,
-                            IdSender = 1,
-                            IdTicketSupport = 9,
-                            Message = "sapiente",
-                            Vu = false
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Date = new DateTime(2019, 12, 9, 18, 33, 31, 834, DateTimeKind.Local).AddTicks(3195),
-                            IdReceiver = 4,
-                            IdSender = 2,
-                            IdTicketSupport = 2,
-                            Message = "dolorem",
-                            Vu = false
-                        });
                 });
 
             modelBuilder.Entity("Models.Constucteur", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -364,13 +269,14 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Etage")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -407,16 +313,17 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CodeEmplacement")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdDepartement")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -480,43 +387,44 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateAchat")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EtatActuel")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdCategorie")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdConstucteur")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdFournisseur")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdStatut")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Model")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NInventaire")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NSerie")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PrixUnitaireHT")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("RefAchat")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remarques")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -535,105 +443,35 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("InfoSystemeHtml")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NSerie")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SoftwareHtml")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("EquipementInfos");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2020, 6, 10, 4, 13, 5, 269, DateTimeKind.Local).AddTicks(2554),
-                            InfoSystemeHtml = "consectetur",
-                            NSerie = "quibusdam"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2020, 4, 28, 3, 34, 32, 179, DateTimeKind.Local).AddTicks(9542),
-                            InfoSystemeHtml = "voluptas",
-                            NSerie = "cumque"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2020, 4, 15, 11, 57, 26, 946, DateTimeKind.Local).AddTicks(4656),
-                            InfoSystemeHtml = "aut",
-                            NSerie = "dolor"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(2020, 1, 2, 1, 36, 30, 284, DateTimeKind.Local).AddTicks(6427),
-                            InfoSystemeHtml = "exercitationem",
-                            NSerie = "iusto"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Date = new DateTime(2019, 10, 6, 16, 49, 32, 934, DateTimeKind.Local).AddTicks(4588),
-                            InfoSystemeHtml = "cumque",
-                            NSerie = "sunt"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Date = new DateTime(2020, 6, 6, 9, 20, 9, 863, DateTimeKind.Local).AddTicks(3969),
-                            InfoSystemeHtml = "quo",
-                            NSerie = "laborum"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Date = new DateTime(2020, 5, 23, 3, 57, 50, 357, DateTimeKind.Local).AddTicks(7474),
-                            InfoSystemeHtml = "soluta",
-                            NSerie = "dolor"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Date = new DateTime(2019, 12, 18, 5, 44, 9, 65, DateTimeKind.Local).AddTicks(9825),
-                            InfoSystemeHtml = "facere",
-                            NSerie = "molestias"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Date = new DateTime(2020, 1, 14, 12, 52, 1, 867, DateTimeKind.Local).AddTicks(8443),
-                            InfoSystemeHtml = "ut",
-                            NSerie = "et"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Date = new DateTime(2020, 2, 14, 7, 15, 44, 525, DateTimeKind.Local).AddTicks(9424),
-                            InfoSystemeHtml = "velit",
-                            NSerie = "voluptatum"
-                        });
                 });
 
             modelBuilder.Entity("Models.Fonction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -696,24 +534,26 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Fax")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tel")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.ToTable("Fournisseurs");
 
@@ -844,10 +684,11 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -875,13 +716,14 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdDepartement")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -910,7 +752,7 @@ namespace apps.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 4,
                             IdDepartement = 4,
                             Nom = "DIPE/"
                         });
@@ -920,13 +762,14 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -951,165 +794,76 @@ namespace apps.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateCreation")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("IdCollaborateur")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsClosed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Priorite")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Question")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdCollaborateur");
 
                     b.ToTable("TicketSupports");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateCreation = new DateTime(2020, 4, 11, 11, 7, 42, 389, DateTimeKind.Local).AddTicks(7064),
-                            IdCollaborateur = 2,
-                            IsClosed = false,
-                            Priorite = "at",
-                            Question = "consequatur"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateCreation = new DateTime(2020, 4, 22, 12, 29, 54, 311, DateTimeKind.Local).AddTicks(9331),
-                            IdCollaborateur = 1,
-                            IsClosed = false,
-                            Priorite = "omnis",
-                            Question = "occaecati"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateCreation = new DateTime(2019, 7, 3, 6, 59, 55, 499, DateTimeKind.Local).AddTicks(3543),
-                            IdCollaborateur = 5,
-                            IsClosed = false,
-                            Priorite = "dolor",
-                            Question = "impedit"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DateCreation = new DateTime(2019, 8, 5, 21, 52, 43, 343, DateTimeKind.Local).AddTicks(8910),
-                            IdCollaborateur = 9,
-                            IsClosed = true,
-                            Priorite = "et",
-                            Question = "natus"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DateCreation = new DateTime(2019, 7, 20, 17, 29, 35, 444, DateTimeKind.Local).AddTicks(6486),
-                            IdCollaborateur = 7,
-                            IsClosed = true,
-                            Priorite = "hic",
-                            Question = "neque"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            DateCreation = new DateTime(2019, 12, 9, 0, 25, 27, 205, DateTimeKind.Local).AddTicks(1589),
-                            IdCollaborateur = 8,
-                            IsClosed = false,
-                            Priorite = "odio",
-                            Question = "quis"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            DateCreation = new DateTime(2020, 2, 25, 14, 2, 32, 144, DateTimeKind.Local).AddTicks(3397),
-                            IdCollaborateur = 1,
-                            IsClosed = false,
-                            Priorite = "fugiat",
-                            Question = "eos"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            DateCreation = new DateTime(2020, 1, 6, 18, 7, 51, 683, DateTimeKind.Local).AddTicks(6607),
-                            IdCollaborateur = 2,
-                            IsClosed = false,
-                            Priorite = "magni",
-                            Question = "ad"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            DateCreation = new DateTime(2020, 3, 10, 11, 47, 5, 718, DateTimeKind.Local).AddTicks(8154),
-                            IdCollaborateur = 4,
-                            IsClosed = true,
-                            Priorite = "eaque",
-                            Question = "praesentium"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            DateCreation = new DateTime(2020, 2, 17, 4, 23, 18, 829, DateTimeKind.Local).AddTicks(2339),
-                            IdCollaborateur = 6,
-                            IsClosed = true,
-                            Priorite = "quidem",
-                            Question = "est"
-                        });
                 });
 
             modelBuilder.Entity("Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CodeOfVerification")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("EmailVerified")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("IdFonction")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("IdRole")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("IdService")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Matricule")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Prenom")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.HasIndex("IdFonction");
 
@@ -1128,7 +882,7 @@ namespace apps.Migrations
                             EmailVerified = true,
                             IdFonction = 7,
                             IdRole = 1,
-                            IdService = 14,
+                            IdService = 1,
                             IsActive = true,
                             Matricule = "730533",
                             Nom = "Mourabit",
@@ -1143,7 +897,7 @@ namespace apps.Migrations
                             EmailVerified = true,
                             IdFonction = 1,
                             IdRole = 2,
-                            IdService = 14,
+                            IdService = 2,
                             IsActive = true,
                             Matricule = "1042706",
                             Nom = "Hicham",
@@ -1158,7 +912,7 @@ namespace apps.Migrations
                             EmailVerified = true,
                             IdFonction = 5,
                             IdRole = 2,
-                            IdService = 11,
+                            IdService = 3,
                             IsActive = true,
                             Matricule = "1059644",
                             Nom = "mehdi",

@@ -148,6 +148,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   send(o: Chat) {
     console.log(o);
+    o.idReceiver = this.o.idCollaborateur;
     this.uow.chats.post(o).subscribe(r => {
       this.chats.push(o);
     });

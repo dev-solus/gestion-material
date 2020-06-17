@@ -102,8 +102,10 @@ namespace Controllers
                 else
                 {
                     var connectionId = ConnectedUser.dict.Values.Where(e => e.IdUser == model.IdReceiver).Select(e => e.ConnectionId).FirstOrDefault();
-
-                    await _chatHub.Clients.Client(connectionId).SendAsync("ReceiveMessage", model);
+                    if (connectionId != null)
+                    {
+                        await _chatHub.Clients.Client(connectionId).SendAsync("ReceiveMessage", model);
+                    }
                 }
 
 
