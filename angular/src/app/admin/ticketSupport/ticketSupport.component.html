@@ -95,6 +95,14 @@
         <th mat-header-cell *matHeaderCellDef>isClosed</th>
         <td mat-cell *matCellDef="let row">{{row.isClosed}}</td>
       </ng-container>
+      <ng-container matColumnDef="unreaderMessage">
+        <th mat-header-cell *matHeaderCellDef>unreaderMessage</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-mini-fab [color]="row.unreaderMessage === 0 ? '' : 'accent'" [routerLink]="['/admin/ticketSupport/update', row.id]">
+            {{row.unreaderMessage}}
+          </button>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>
           <button mat-icon-button color="warn" [disabled]="selectedList.length === 0" (click)="deleteList()">

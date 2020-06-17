@@ -79,6 +79,32 @@ namespace Controllers
             return Ok(list);
         }
 
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Chat>> MessageSeenToTrue(int id)
+        {
+            var idUser = HttpContext.GetIdUser();
+
+            var list = await _context.Chats
+                .Where(e => e.IdTicketSupport == id && e.IdSender != idUser && e.Vu == false)
+                .ToListAsync()
+                ;
+
+            list.ForEach(e => e.Vu = true);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return Ok();
+        }
+
+
         [HttpPost]
         public override async Task<ActionResult<Chat>> Post(Chat model)
         {
@@ -89,7 +115,7 @@ namespace Controllers
                 await _context.SaveChangesAsync();
                 //
                 var isCollaborateur = HttpContext.GetRoleUser() == 3;
-                
+
                 if (isCollaborateur)
                 {
                     var listAdminOrAgentSI = ConnectedUser.dict.Values.Where(e => e.IdRole == 2 || e.IdRole == 1).ToList();

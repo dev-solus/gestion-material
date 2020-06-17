@@ -91,6 +91,9 @@ MIT
 @angular/router
 MIT
 
+@microsoft/signalr
+Apache-2.0
+
 core-js
 MIT
 Copyright (c) 2014-2020 Denis Pushkarev

@@ -38,7 +38,6 @@ namespace Controllers
             var list = await q.OrderByName<TicketSupport>(sortBy, sortDir == "desc")
                 .Skip(startIndex)
                 .Take(pageSize)
-
                 .Select(e => new
                 {
                     id = e.Id,
@@ -47,7 +46,7 @@ namespace Controllers
                     priorite = e.Priorite,
                     isClosed = e.IsClosed,
                     collaborateur = e.Collaborateur.Nom,
-
+                    unreaderMessage = e.TicketSupportChats.Where(c => idUser != c.IdSender && c.Vu == false).Count()
                 })
                 .ToListAsync()
                 ;

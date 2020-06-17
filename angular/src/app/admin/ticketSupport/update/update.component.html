@@ -50,7 +50,7 @@
 
         <div class="d-flex flex-row-reverse align-items-center w-100"  style="font-size: .8em; font-style: italic;">
           <span class="text-muted">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
-          <span class="text-muted">par {{isYou(e.idSender) ? 'vous' : e.sender}} - </span>
+          <span class="text-muted">par {{isYou(e.idSender) ? session.user.nom : e.sender}} - </span>
         </div>
 
         <!-- {{displayName(userToSend)}} -->
@@ -61,8 +61,8 @@
     <form [formGroup]="myFormChat">
       <mat-form-field appearance="fill" class="col-md-12">
         <mat-label>Message</mat-label>
-        <input matInput formControlName="message" >
-        <button mat-icon-button matSuffix [disabled]="o.id === 0" (click)="send(myFormChat.value)">
+        <input matInput formControlName="message">
+        <button mat-icon-button matSuffix [disabled]="o.id === 0 || myFormChat.get('message').value === ''" (click)="send(myFormChat.value)">
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>

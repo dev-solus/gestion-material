@@ -51,6 +51,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.uow.ticketSupports.getOne(this.idTicket).subscribe(r => {
         this.o = r as TicketSupport;
         console.log(this.o);
+        this.messageSeenToTrue(this.o.id);
         this.title = 'Modifier TicketSupport';
         this.createForm();
         this.createFormChat();
@@ -60,6 +61,9 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.chats = r as any;
         });
       });
+
+
+
     }
 
     this.scrollToBottom();
@@ -88,7 +92,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   displayName(u: any) {
-    return u.userName !== '' ? u.userName : u.email.substring(0, u.email.indexOf('@')) ;
+    return u.userName !== '' ? u.userName : u.email.substring(0, u.email.indexOf('@'));
   }
 
   onNoClick(): void {
@@ -117,6 +121,12 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     this.subs.push(sub);
+
+
+  }
+
+  messageSeenToTrue(id) {
+    this.uow.chats.messageSeenToTrue(id).subscribe(r => {});
   }
 
   createForm() {
@@ -135,7 +145,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
       id: [this.chat.id, [Validators.required,]],
       idSender: [this.session.user.id, [Validators.required,]],
       idReceiver: [this.chat.idReceiver],
-      message: [this.chat.message, [Validators.required,]],
+      message: [this.chat.message],
       vu: [this.chat.vu, [Validators.required,]],
       date: [this.chat.date, [Validators.required,]],
       idTicketSupport: [this.idTicket, [Validators.required,]],
@@ -151,6 +161,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
     o.idReceiver = this.o.idCollaborateur;
     this.uow.chats.post(o).subscribe(r => {
       this.chats.push(o);
+      this.myFormChat.get('message').patchValue('');
     });
   }
 

@@ -29,7 +29,7 @@ export class TicketSupportComponent implements OnInit, OnDestroy {
   dataSource: TicketSupport[] = [];
   selectedList: TicketSupport[] = [];
 
-  displayedColumns = ['select', 'question', 'dateCreation', 'priorite', 'collaborateur', 'isClosed', 'option'];
+  displayedColumns = ['select', 'question', 'dateCreation', 'priorite', 'collaborateur', 'isClosed', 'unreaderMessage', 'option'];
 
   panelOpenState = false;
 
