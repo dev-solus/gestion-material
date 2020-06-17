@@ -24,10 +24,10 @@ namespace Controllers
         {
             var q = _context.Affectations
                 .Where(e => action_ == "*" ? true : e.Action.ToLower().Contains(action_.ToLower()))
-.Where(e => idEquipement == 0 ? true : e.IdEquipement == idEquipement)
-.Where(e => idEmplacement == 0 ? true : e.IdEmplacement == idEmplacement)
-.Where(e => idCollaborateur == 0 ? true : e.IdCollaborateur == idCollaborateur)
-.Where(e => idAgentSi == 0 ? true : e.IdAgentSi == idAgentSi)
+                .Where(e => idEquipement == 0 ? true : e.IdEquipement == idEquipement)
+                .Where(e => idEmplacement == 0 ? true : e.IdEmplacement == idEmplacement)
+                .Where(e => idCollaborateur == 0 ? true : e.IdCollaborateur == idCollaborateur)
+                .Where(e => idAgentSi == 0 ? true : e.IdAgentSi == idAgentSi)
 
                 ;
 

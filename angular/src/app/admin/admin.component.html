@@ -6,7 +6,9 @@
     <span>App name</span>
     <span style="flex: 1 1 auto;"></span>
 
-    <button mat-button [matMenuTriggerFor]="beforeMenu">Bienvenue, Me</button>
+    <button mat-button [matMenuTriggerFor]="beforeMenu">
+      {{profile.name}} <b>({{profile.role}})</b>
+    </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
       <!-- <button mat-menu-item [routerLink]="['/admin/compte']">Info Compte</button> -->
       <button mat-menu-item (click)="disconnect()">Se déconnecter</button>

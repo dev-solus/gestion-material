@@ -6,6 +6,8 @@ import { TicketSupport, Chat } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/shared';
+import { ChatHubService } from '../../chat.hub.service';
+import { distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
@@ -38,9 +40,10 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
     // public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     private route: ActivatedRoute, private fb: FormBuilder
     , private uow: UowService, private router: Router
-    , public session: SessionService) { }
+    , public session: SessionService, private chatHub: ChatHubService) { }
 
   ngOnInit() {
+    this.o.idCollaborateur = this.session.user.id;
     this.createForm();
     this.createFormChat();
     this.idTicket = +this.route.snapshot.paramMap.get('id');
@@ -60,10 +63,18 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     this.scrollToBottom();
+    this.messageInComing();
   }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  messageInComing() {
+    this.chatHub.messageReceived.pipe( /*debounceTime(300),*/distinctUntilChanged()).subscribe((r: Chat) => {
+      console.log(r);
+      this.chats.push(r);
+    });
   }
 
   isYou(id) {
@@ -85,16 +96,22 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   submit(o: TicketSupport): void {
-    console.log(o)
     let sub = null;
     if (o.id === 0) {
+      o.idCollaborateur = this.session.user.id;
       sub = this.uow.ticketSupports.post(o).subscribe(r => {
-        this.router.navigate(['/admin/ticketSupport']);
+        this.o = r;
+        console.log(this.o);
+        this.createForm();
+        this.myFormChat.get('idTicketSupport').setValue(this.o.id);
+        this.myFormChat.get('idReceiver').setValue(this.o.idCollaborateur);
+        this.router.navigate(['/admin/ticketSupport/update', this.o.id]);
         // this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.ticketSupports.put(o.id, o).subscribe(r => {
-        this.router.navigate(['/admin/ticketSupport']);
+        // this.router.navigate(['/admin/ticketSupport']);
+
         // this.dialogRef.close(o);
       });
     }

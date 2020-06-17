@@ -9,6 +9,8 @@ using Models;
 using Api.Providers;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
+using Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Controllers
 {
@@ -16,8 +18,11 @@ namespace Controllers
     [ApiController]
     public class ChatsController : SuperController<Chat>
     {
-        public ChatsController(MyContext context) : base(context)
-        { }
+        private readonly IHubContext<ChatHub> _chatHub;
+        public ChatsController(MyContext context, IHubContext<ChatHub> chatHub) : base(context)
+        {
+            _chatHub = chatHub;
+        }
 
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{idSender}/{idReceiver}/{message}/{idTicketSupport}")]
         public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, int idSender, int idReceiver, string message, int idTicketSupport)
@@ -53,14 +58,15 @@ namespace Controllers
             return Ok(new { list = list, count = count });
         }
 
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByTicket(int id)
         {
             var list = await _context.Chats
                 .Where(e => e.IdTicketSupport == id)
                 .OrderBy(e => e.Date)
-                .Select(e => new{
+                .Select(e => new
+                {
                     Id = e.Id,
                     Message = e.Message,
                     Vu = e.Vu,
@@ -71,6 +77,43 @@ namespace Controllers
                 .ToListAsync()
                 ;
             return Ok(list);
+        }
+
+        [HttpPost]
+        public override async Task<ActionResult<Chat>> Post(Chat model)
+        {
+            _context.Chats.Add(model);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                //
+                var isCollaborateur = HttpContext.GetRoleUser() == 3;
+                
+                if (isCollaborateur)
+                {
+                    var listAdminOrAgentSI = ConnectedUser.dict.Values.Where(e => e.IdRole == 2 || e.IdRole == 1).ToList();
+
+                    listAdminOrAgentSI.ForEach(async e =>
+                    {
+                        await _chatHub.Clients.Client(e.ConnectionId).SendAsync("ReceiveMessage", model);
+                    });
+                }
+                else
+                {
+                    var connectionId = ConnectedUser.dict.Values.Where(e => e.IdUser == model.IdReceiver).Select(e => e.ConnectionId).FirstOrDefault();
+
+                    await _chatHub.Clients.Client(connectionId).SendAsync("ReceiveMessage", model);
+                }
+
+
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return Ok(model);
         }
 
     }

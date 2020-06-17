@@ -12,7 +12,7 @@ namespace Api.Providers
 
         public static int GetIdUser(this HttpContext context)
         {
-            return int.Parse(RetrieveTokken.GetClaim("unique_name", context));
+            return int.Parse(context.User?.Identity?.Name);
         }
 
         public static int GetRoleUser(this HttpContext context)

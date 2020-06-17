@@ -23,12 +23,14 @@ namespace Controllers
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{question}/{priorite}/{idCollaborateur}")]
         public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string question, string priorite, int idCollaborateur)
         {
-            // var idRole = HttpContext.GetRoleUser();
+            var idRole = HttpContext.GetRoleUser();
+            var idUser = HttpContext.GetIdUser();
+            
             var q = _context.TicketSupports
+                .Where(e => idRole == 1 || idRole == 2 ? true : e.IdCollaborateur == idUser)
                 .Where(e => question == "*" ? true : e.Question.ToLower().Contains(question.ToLower()))
                 .Where(e => priorite == "*" ? true : e.Priorite.ToLower().Contains(priorite.ToLower()))
                 .Where(e => idCollaborateur == 0 ? true : e.IdCollaborateur == idCollaborateur)
-
                 ;
 
             int count = await q.CountAsync();

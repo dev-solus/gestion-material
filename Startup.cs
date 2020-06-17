@@ -86,18 +86,18 @@ namespace Api
                /**
                * this just for the sake of signalR
                */
-               //    options.Events = new JwtBearerEvents
-               //    {
-               //        OnMessageReceived = context =>
-               //        {
-               //            var accessToken = context.Request.Query["access_token"];
-               //            if (string.IsNullOrEmpty(accessToken) == false)
-               //            {
-               //                context.Token = accessToken;
-               //            }
-               //            return Task.CompletedTask;
-               //        }
-               //    };
+               options.Events = new JwtBearerEvents
+               {
+                   OnMessageReceived = context =>
+                   {
+                       var accessToken = context.Request.Query["access_token"];
+                       if (string.IsNullOrEmpty(accessToken) == false)
+                       {
+                           context.Token = accessToken;
+                       }
+                       return Task.CompletedTask;
+                   }
+               };
 
                options.RequireHttpsMetadata = false;
                options.SaveToken = true;
@@ -174,19 +174,19 @@ namespace Api
             }
             else
             {
-               
+
             }
 
-             app.Use(async (context, next) =>
-                {
-                    await next();
+            app.Use(async (context, next) =>
+               {
+                   await next();
 
-                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-                    {
-                        context.Request.Path = "/index.html";
-                        await next();
-                    }
-                });
+                   if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                   {
+                       context.Request.Path = "/index.html";
+                       await next();
+                   }
+               });
 
 
 
@@ -205,7 +205,7 @@ namespace Api
             {
                 endpoints.MapControllers();
                 // endpoints.MapControllerRoute( name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
-                // endpoints.MapHub<ChatHub>("/ChatHub");
+                endpoints.MapHub<ChatHub>("/ChatHub");
 
                 // endpoints.MapFallbackToFile("/index.html");
             });

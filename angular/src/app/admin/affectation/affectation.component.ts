@@ -62,11 +62,10 @@ agentSis = this.uow.users.get();
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.action.value === '' ? '*' : this.action.value,
-this.idEquipement.value === 0 ? 0 : this.idEquipement.value,
-this.idEmplacement.value === 0 ? 0 : this.idEmplacement.value,
-this.idCollaborateur.value === 0 ? 0 : this.idCollaborateur.value,
-this.idAgentSi.value === 0 ? 0 : this.idAgentSi.value,
-
+          this.idEquipement.value === 0 ? 0 : this.idEquipement.value,
+          this.idEmplacement.value === 0 ? 0 : this.idEmplacement.value,
+          this.idCollaborateur.value === 0 ? 0 : this.idCollaborateur.value,
+          this.idAgentSi.value === 0 ? 0 : this.idAgentSi.value,
         );
       }
     );
@@ -76,10 +75,10 @@ this.idAgentSi.value === 0 ? 0 : this.idAgentSi.value,
 
   reset() {
     this.action.setValue('');
-this.idEquipement.setValue(0);
-this.idEmplacement.setValue(0);
-this.idCollaborateur.setValue(0);
-this.idAgentSi.setValue(0);
+    this.idEquipement.setValue(0);
+    this.idEmplacement.setValue(0);
+    this.idCollaborateur.setValue(0);
+    this.idAgentSi.setValue(0);
 
     this.update.next(true);
   }
@@ -93,7 +92,8 @@ this.idAgentSi.setValue(0);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, action, idEquipement, idEmplacement, idCollaborateur, idAgentSi,) {
-    const sub = this.uow.affectations.getAll(startIndex, pageSize, sortBy, sortDir,  action, idEquipement, idEmplacement, idCollaborateur, idAgentSi,).subscribe(
+    const sub = this.uow.affectations.getAll(startIndex, pageSize, sortBy, sortDir,  action, idEquipement
+      , idEmplacement, idCollaborateur, idAgentSi,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;

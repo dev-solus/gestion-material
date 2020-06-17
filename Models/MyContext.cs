@@ -53,7 +53,7 @@ namespace Models
                 entity.Property(e => e.IsClosed);
                 entity.Property(e => e.IdCollaborateur);
                 entity.HasOne(d => d.Collaborateur).WithMany(p => p.CollaborateurTicketSupports).HasForeignKey(d => d.IdCollaborateur);
-                entity.HasMany(d => d.TicketSupportChats).WithOne(p => p.TicketSupport).HasForeignKey(d => d.IdTicketSupport).OnDelete(DeleteBehavior.NoAction);
+                entity.HasMany(d => d.TicketSupportChats).WithOne(p => p.TicketSupport).HasForeignKey(d => d.IdTicketSupport).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Chat>(entity =>
@@ -228,8 +228,8 @@ namespace Models
 .TicketSupports()
 .Chats()
 .Users()
-.Affectations()
-.Equipements()
+// .Affectations()
+// .Equipements()
 .Emplacements()
 
                 ;

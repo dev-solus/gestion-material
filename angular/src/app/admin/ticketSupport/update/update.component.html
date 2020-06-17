@@ -61,8 +61,8 @@
     <form [formGroup]="myFormChat">
       <mat-form-field appearance="fill" class="col-md-12">
         <mat-label>Message</mat-label>
-        <input matInput formControlName="message" required>
-        <button mat-icon-button matSuffix (click)="send(myFormChat.value)">
+        <input matInput formControlName="message" >
+        <button mat-icon-button matSuffix [disabled]="o.id === 0" (click)="send(myFormChat.value)">
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>

@@ -7,7 +7,7 @@
     "install": "dotnet restore && cd angular && npm i",
     "f": "cd angular && ng serve --port 4201",
     "reverse": "dotnet ef dbcontext scaffold 'data source=DESKTOP-3550K4L\\HARMONY;database=rfid;user id=sa; password=123' Microsoft.EntityFrameworkCore.SqlServer -o Model -c 'MyContext'",
-    "m": "dotnet ef migrations add first && dotnet ef database drop -f && dotnet ef database update && dotnet watch run",
+    "m": "node ./remove-script.js && dotnet ef migrations add first && dotnet ef database drop -f && dotnet ef database update && dotnet watch run",
     "b": "dotnet watch run",
     "f-p": "cd angular && ng build --prod",
     "b-p": "dotnet publish -o D:/MarIT/GestionCommerciale/deploy",

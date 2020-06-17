@@ -121,6 +121,6 @@ export class LoaderInterceptor implements HttpInterceptor {
       this.loaderService.isLoading.next({isBegin: true, count: +this.percentage.toFixed(0)});
     }
 
-    console.log(length, this.percentage)
+    // console.log(length, this.percentage)
   }
 }
