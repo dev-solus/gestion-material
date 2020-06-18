@@ -33,18 +33,18 @@
         <mat-divider></mat-divider>
       </mat-list-item> -->
       <mat-list-item [routerLink]="['/admin/affectation']" routerLinkActive="router-link-active">
-        <mat-icon>code</mat-icon>&nbsp;<span>Affectation</span>
+        <mat-icon>code</mat-icon>&nbsp;<span>{{session.isUser ? 'Mes ' : ''}}Affectation</span>
         <mat-divider></mat-divider>
       </mat-list-item>
-      <mat-list-item [routerLink]="['/admin/equipement']" routerLinkActive="router-link-active">
+      <mat-list-item *ngIf="!session.isUser" [routerLink]="['/admin/equipement']" routerLinkActive="router-link-active">
         <mat-icon>code</mat-icon>&nbsp;<span>Equipement</span>
         <mat-divider></mat-divider>
       </mat-list-item>
       <mat-list-item [routerLink]="['/admin/equipementInfo']" routerLinkActive="router-link-active">
-        <mat-icon>code</mat-icon>&nbsp;<span>EquipementInfo</span>
+        <mat-icon>code</mat-icon>&nbsp;<span>Equipement Info</span>
         <mat-divider></mat-divider>
       </mat-list-item>
-      <mat-list-item [routerLink]="['/admin/fournisseur']" routerLinkActive="router-link-active">
+      <mat-list-item *ngIf="!session.isUser" [routerLink]="['/admin/fournisseur']" routerLinkActive="router-link-active">
         <mat-icon>code</mat-icon>&nbsp;<span>Fournisseur</span>
         <mat-divider></mat-divider>
       </mat-list-item>

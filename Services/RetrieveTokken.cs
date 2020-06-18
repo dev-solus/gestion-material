@@ -17,30 +17,7 @@ namespace Api.Providers
 
         public static int GetRoleUser(this HttpContext context)
         {
-            try
-            {
-                var idUser = int.Parse(context.User?.Identity?.Name);
-                var idRole = int.Parse(context.User.Claims.SingleOrDefault(e => e.Type == ClaimTypes.Role)?.Value);
-                // return RetrieveTokken.GetClaim("role", context);
-
-                return idRole;
-            }
-            catch (System.Exception)
-            {
-                return int.Parse(RetrieveTokken.GetClaim("role", context));
-            }
-            
-        }
-
-        public static int GetPlaceUser(this HttpContext context)
-        {
-            return int.Parse(RetrieveTokken.GetClaim("idPlace", context));
-        }
-
-        public static int GetRulePlaceUser(this HttpContext context)
-        {
-            string t = RetrieveTokken.GetClaim("idRulePlace", context);
-            return int.Parse(t != null ? t : 0.ToString());
+            return int.Parse(context.User.Claims.SingleOrDefault(e => e.Type == ClaimTypes.Role)?.Value);
         }
 
         private static string GetClaim(string type, HttpContext context)

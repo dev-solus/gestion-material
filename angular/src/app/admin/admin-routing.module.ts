@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '', component: AdminComponent,
     children: [
-      { path: '', redirectTo: 'affectation', pathMatch: 'full' },
+      { path: '', redirectTo: 'ticketSupport', pathMatch: 'full' },
       // { path: 'dash', loadChildren: () => import('./dash/dash.module').then(m => m.DashModule), data: {animation: 'dash'} },
       { path: 'fonction', loadChildren: () => import('./fonction/fonction.module').then(m => m.FonctionModule), data: { animation: 'fonction' } },
       { path: 'service', loadChildren: () => import('./service/service.module').then(m => m.ServiceModule), data: { animation: 'service' } },

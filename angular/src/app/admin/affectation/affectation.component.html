@@ -26,29 +26,33 @@
 
     <div class="mt-2">
       <mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>action</mat-label>
-                    <input matInput [formControl]="action" required>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>equipements</mat-label>
-                    <mat-select [formControl]="idEquipement" readonly>
-                        <mat-option *ngFor="let e of equipements | async" [value]="e.id">{{ e.nSerie }}</mat-option>
-                    </mat-select>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>emplacements</mat-label>
-                    <mat-select [formControl]="idEmplacement" readonly>
-                        <mat-option *ngFor="let e of emplacements | async" [value]="e.id">{{ e.codeEmplacement }}</mat-option>
-                    </mat-select>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>collaborateurs</mat-label>
-                    <mat-select [formControl]="idCollaborateur" readonly>
-                        <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field><mat-form-field appearance="fill" class="col-md-6">
-                    <mat-label>agentSis</mat-label>
-                    <mat-select [formControl]="idAgentSi" readonly>
-                        <mat-option *ngFor="let e of agentSis | async" [value]="e.id">{{ e.nom }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+        <mat-label>action</mat-label>
+        <input matInput [formControl]="action" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>equipements</mat-label>
+        <mat-select [formControl]="idEquipement" readonly>
+          <mat-option *ngFor="let e of equipements | async" [value]="e.id">{{ e.nSerie }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-6">
+        <mat-label>emplacements</mat-label>
+        <mat-select [formControl]="idEmplacement" readonly>
+          <mat-option *ngFor="let e of emplacements | async" [value]="e.id">{{ e.codeEmplacement }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!session.isUser" appearance="fill" class="col-md-6">
+        <mat-label>collaborateurs</mat-label>
+        <mat-select [formControl]="idCollaborateur" readonly>
+          <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="!session.isUser" appearance="fill" class="col-md-6">
+        <mat-label>agentSis</mat-label>
+        <mat-select [formControl]="idAgentSi" readonly>
+          <mat-option *ngFor="let e of agentSis | async" [value]="e.id">{{ e.nom }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="d-flex flex-row-reverse mb-2 mr-2">
@@ -74,34 +78,41 @@
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selectedList.length !== 0 && isAllSelected()"
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+            [checked]="selectedList.length !== 0 && isAllSelected()"
             [indeterminate]="selectedList.length !== 0 && !isAllSelected()">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null" [checked]="isSelected(row)">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? check(row) : null"
+            [checked]="isSelected(row)">
           </mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-                    <td mat-cell *matCellDef="let row">{{row.action}}</td>
-                </ng-container><ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-                    <td mat-cell *matCellDef="let row">{{row.date | date : "dd/MM/yyyy"}}</td>
-                </ng-container><ng-container matColumnDef="equipement">
-                    <th mat-header-cell *matHeaderCellDef >Equipement</th>
-                    <td mat-cell *matCellDef="let row">{{row.equipement}}</td>
-                </ng-container><ng-container matColumnDef="emplacement">
-                    <th mat-header-cell *matHeaderCellDef >Emplacement</th>
-                    <td mat-cell *matCellDef="let row">{{row.emplacement}}</td>
-                </ng-container><ng-container matColumnDef="collaborateur">
-                    <th mat-header-cell *matHeaderCellDef >Collaborateur</th>
-                    <td mat-cell *matCellDef="let row">{{row.collaborateur}}</td>
-                </ng-container><ng-container matColumnDef="agentSi">
-                    <th mat-header-cell *matHeaderCellDef >Agent Si</th>
-                    <td mat-cell *matCellDef="let row">{{row.agentSi}}</td>
-                </ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+        <td mat-cell *matCellDef="let row">{{row.action}}</td>
+      </ng-container>
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let row">{{row.date | date : "dd/MM/yyyy"}}</td>
+      </ng-container>
+      <ng-container matColumnDef="equipement">
+        <th mat-header-cell *matHeaderCellDef>Equipement</th>
+        <td mat-cell *matCellDef="let row">{{row.equipement}}</td>
+      </ng-container>
+      <ng-container matColumnDef="emplacement">
+        <th mat-header-cell *matHeaderCellDef>Emplacement</th>
+        <td mat-cell *matCellDef="let row">{{row.emplacement}}</td>
+      </ng-container>
+      <ng-container matColumnDef="collaborateur">
+        <th mat-header-cell *matHeaderCellDef>Collaborateur</th>
+        <td mat-cell *matCellDef="let row">{{row.collaborateur}}</td>
+      </ng-container>
+      <ng-container matColumnDef="agentSi">
+        <th mat-header-cell *matHeaderCellDef>Agent Si</th>
+        <td mat-cell *matCellDef="let row">{{row.agentSi}}</td>
+      </ng-container>
       <ng-container matColumnDef="option" style="flex-direction: row-reverse;">
         <th mat-header-cell *matHeaderCellDef>
           <button mat-icon-button color="warn" [disabled]="selectedList.length === 0" (click)="deleteList()">

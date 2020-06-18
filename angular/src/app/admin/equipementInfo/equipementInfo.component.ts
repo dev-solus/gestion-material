@@ -29,18 +29,19 @@ export class EquipementInfoComponent implements OnInit, OnDestroy {
   dataSource: EquipementInfo[] = [];
   selectedList: EquipementInfo[] = [];
 
-  displayedColumns = ['select',  'nSerie', 'date', 'option'];
+  displayedColumns = ['select', 'user', 'nSerie', 'model', 'nom', 'date', 'option'];
 
   panelOpenState = false;
 
   nSerie = new FormControl('');
-stringInfo = new FormControl('');
+  model = new FormControl('');
+  nom = new FormControl('');
 
 
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) { }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -55,7 +56,8 @@ stringInfo = new FormControl('');
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nSerie.value === '' ? '*' : this.nSerie.value,
-this.stringInfo.value === '' ? '*' : this.stringInfo.value,
+          this.model.value === '' ? '*' : this.model.value,
+          this.nom.value === '' ? '*' : this.nom.value,
 
         );
       }
@@ -66,7 +68,8 @@ this.stringInfo.value === '' ? '*' : this.stringInfo.value,
 
   reset() {
     this.nSerie.setValue('');
-this.stringInfo.setValue('');
+    this.model.setValue('');
+    this.nom.setValue('');
 
     this.update.next(true);
   }
@@ -79,8 +82,8 @@ this.stringInfo.setValue('');
     this.update.next(true);
   }
 
-  getPage(startIndex, pageSize, sortBy, sortDir, nSerie, stringInfo,) {
-    const sub = this.uow.equipementInfos.getAll(startIndex, pageSize, sortBy, sortDir,  nSerie, stringInfo,).subscribe(
+  getPage(startIndex, pageSize, sortBy, sortDir, nSerie, model, nom) {
+    const sub = this.uow.equipementInfos.getAll(startIndex, pageSize, sortBy, sortDir, nSerie, model, nom).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;

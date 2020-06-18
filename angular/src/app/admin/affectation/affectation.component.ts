@@ -1,3 +1,4 @@
+import { SessionService } from './../../shared/session.service';
 import { Component, OnInit, ViewChild, EventEmitter, Inject, OnDestroy } from '@angular/core';
 import { merge, Subscription } from 'rxjs';
 import { UpdateComponent } from './update/update.component';
@@ -47,7 +48,8 @@ agentSis = this.uow.users.get();
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string 
+    , public session: SessionService) { }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(

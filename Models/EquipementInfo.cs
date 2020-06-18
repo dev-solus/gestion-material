@@ -6,6 +6,8 @@ namespace Models
     {
         public int Id { get; set; }
         public string NSerie { get; set; }
+        public string Model { get; set; }
+        public string Nom { get; set; }
         public DateTime Date { get; set; }
         public string InfoSystemeHtml { get; set; }
         public string SoftwareHtml { get; set; }

@@ -24,16 +24,16 @@ namespace Controllers
         {
             var q = _context.Equipements
                 .Where(e => nSerie == "*" ? true : e.NSerie.ToLower().Contains(nSerie.ToLower()))
-.Where(e => model == "*" ? true : e.Model.ToLower().Contains(model.ToLower()))
-.Where(e => refAchat == "*" ? true : e.RefAchat.ToLower().Contains(refAchat.ToLower()))
-.Where(e => etatActuel == "*" ? true : e.EtatActuel.ToLower().Contains(etatActuel.ToLower()))
-.Where(e => prixUnitaireHT == 0 ? true : e.PrixUnitaireHT == prixUnitaireHT)
-.Where(e => nInventaire == "*" ? true : e.NInventaire.ToLower().Contains(nInventaire.ToLower()))
-.Where(e => remarques == "*" ? true : e.Remarques.ToLower().Contains(remarques.ToLower()))
-.Where(e => idConstucteur == 0 ? true : e.IdConstucteur == idConstucteur)
-.Where(e => idCategorie == 0 ? true : e.IdCategorie == idCategorie)
-.Where(e => idStatut == 0 ? true : e.IdStatut == idStatut)
-.Where(e => idFournisseur == 0 ? true : e.IdFournisseur == idFournisseur)
+                .Where(e => model == "*" ? true : e.Model.ToLower().Contains(model.ToLower()))
+                .Where(e => refAchat == "*" ? true : e.RefAchat.ToLower().Contains(refAchat.ToLower()))
+                .Where(e => etatActuel == "*" ? true : e.EtatActuel.ToLower().Contains(etatActuel.ToLower()))
+                .Where(e => prixUnitaireHT == 0 ? true : e.PrixUnitaireHT == prixUnitaireHT)
+                .Where(e => nInventaire == "*" ? true : e.NInventaire.ToLower().Contains(nInventaire.ToLower()))
+                .Where(e => remarques == "*" ? true : e.Remarques.ToLower().Contains(remarques.ToLower()))
+                .Where(e => idConstucteur == 0 ? true : e.IdConstucteur == idConstucteur)
+                .Where(e => idCategorie == 0 ? true : e.IdCategorie == idCategorie)
+                .Where(e => idStatut == 0 ? true : e.IdStatut == idStatut)
+                .Where(e => idFournisseur == 0 ? true : e.IdFournisseur == idFournisseur)
 
                 ;
 

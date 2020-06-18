@@ -21,7 +21,7 @@ namespace Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        // .UseUrls("http://192.168.1.25:5002/")
+                        .UseUrls("http://localhost:5002/")
                         // .UseUrls("http://192.168.43.238:5002")
                         .UseStartup<Startup>();
                 });

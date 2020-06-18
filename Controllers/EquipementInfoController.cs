@@ -19,12 +19,13 @@ namespace Controllers
         public EquipementInfosController(MyContext context) : base(context)
         { }
 
-        [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nSerie}/{stringInfo}")]
-        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nSerie, string stringInfo)
+        [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nSerie}/{model}/{nom}")]
+        public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nSerie, string model, string nom)
         {
             var q = _context.EquipementInfos
                 .Where(e => nSerie == "*" ? true : e.NSerie.ToLower().Contains(nSerie.ToLower()))
-                .Where(e => stringInfo == "*" ? true : e.InfoSystemeHtml.ToLower().Contains(stringInfo.ToLower()))
+                .Where(e => model == "*" ? true : e.Model.ToLower().Contains(model.ToLower()))
+                .Where(e => nom == "*" ? true : e.Nom.ToLower().Contains(nom.ToLower()))
 
                 ;
 
@@ -38,10 +39,15 @@ namespace Controllers
                 {
                     id = e.Id,
                     nSerie = e.NSerie,
+                    model = e.Model,
+                    nom = e.Nom,
                     date = e.Date,
                     InfoSystemeHtml = e.InfoSystemeHtml,
                     SoftwareHtml = e.SoftwareHtml,
-
+                    user = _context.Affectations    
+                        .Where(o => o.Equipement.NSerie == e.NSerie)
+                        .Select(s => s.Collaborateur.Nom + " " + s.Collaborateur.Prenom )
+                        .FirstOrDefault()
                 })
                 .ToListAsync()
                 ;
@@ -57,6 +63,8 @@ namespace Controllers
             if (eq != null)
             {
                 eq.Date = model.Date;
+                eq.Model = model.Model;
+                eq.Nom = model.Nom;
                 eq.InfoSystemeHtml = model.InfoSystemeHtml;
                 eq.SoftwareHtml = model.SoftwareHtml;
             }

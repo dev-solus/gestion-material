@@ -11,9 +11,9 @@ export class EquipementInfoService extends SuperService<EquipementInfo> {
     super('equipementInfos');
   }
 
-  getAll(startIndex, pageSize, sortBy, sortDir, nSerie, stringInfo) {
+  getAll(startIndex, pageSize, sortBy, sortDir, nSerie, model, nom) {
 
-    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nSerie}/${stringInfo}`);
+    return this.http.get(`${this.urlApi}/${this.controller}/getAll/${startIndex}/${pageSize}/${sortBy}/${sortDir}/${nSerie}/${model}/${nom}`);
   }
 
 }
