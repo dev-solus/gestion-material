@@ -6,6 +6,7 @@ import { MediaService } from '../shared/media.service';
 import { ChatHubService } from './chat.hub.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Chat } from '../models/models';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -17,7 +18,8 @@ export class AdminComponent implements OnInit {
   panelOpenState = false;
   isMobileWidth = false;
   constructor(public session: SessionService, private router: Router
-    , public myMedia: MediaService, private chat: ChatHubService) { }
+    , public myMedia: MediaService, private chat: ChatHubService
+    , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.myMedia.windowSizeChanged.subscribe(r => this.isMobileWidth = r.width <= 700);
@@ -30,7 +32,28 @@ export class AdminComponent implements OnInit {
   messageInComing() {
     this.chat.messageReceived.pipe( /*debounceTime(300),*/distinctUntilChanged()).subscribe(async (r: Chat) => {
       console.log(r);
+      this.toastrChat(r);
+
     });
+  }
+
+  toastrChat(chat: Chat) {
+    const conf: Partial<IndividualConfig> = {
+      positionClass: 'toast-top-right',
+      // positionClass: 'toast-bottom-left',
+      closeButton: true,
+      disableTimeOut: false,
+      tapToDismiss: false,
+      enableHtml: true,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      timeOut: 2500,
+      // preventDuplicates: false,
+    };
+
+    this.toastr.success(chat.message, chat.senderName, conf).onTap.subscribe(r => {
+      this.router.navigate(['admin/ticketSupport/update', chat.idTicketSupport]);
+    } )
   }
 
   disconnect() {
@@ -41,7 +64,7 @@ export class AdminComponent implements OnInit {
   get profile() {
     return {
       name: this.session.user.nom + ' ' + this.session.user.prenom,
-      role: this.session.isAdmin ? 'Admin' : this.session.isAgentSi ? 'Agent SI' : 'Collaborateur',
+      role: this.session.isAdmin ? 'Admin' : this.session.isAgentSi ? 'Agent SI' : this.session.isUser ? 'Collaborateur' : 'Financier',
     }
   }
 

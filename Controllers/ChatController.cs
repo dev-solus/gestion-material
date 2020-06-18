@@ -29,7 +29,7 @@ namespace Controllers
         {
             var q = _context.Chats
                 .Where(e => idSender == 0 ? true : e.IdSender == idSender)
-                .Where(e => idReceiver == 0 ? true : e.IdReceiver == idReceiver)
+                .Where(e => idReceiver == 0 ? true : e.IdCollaboratteur == idReceiver)
                 .Where(e => message == "*" ? true : e.Message.ToLower().Contains(message.ToLower()))
                 .Where(e => idTicketSupport == 0 ? true : e.IdTicketSupport == idTicketSupport)
 
@@ -109,6 +109,7 @@ namespace Controllers
         public override async Task<ActionResult<Chat>> Post(Chat model)
         {
             _context.Chats.Add(model);
+            // var user = _context.Users.Find(model.IdSender);
 
             try
             {
@@ -116,18 +117,19 @@ namespace Controllers
                 //
                 var isCollaborateur = HttpContext.GetRoleUser() == 3;
 
+
                 if (isCollaborateur)
                 {
                     var listAdminOrAgentSI = ConnectedUser.dict.Values.Where(e => e.IdRole == 2 || e.IdRole == 1).ToList();
 
                     listAdminOrAgentSI.ForEach(async e =>
                     {
-                        await _chatHub.Clients.Client(e.ConnectionId).SendAsync("ReceiveMessage", model);
+                        await _chatHub.Clients.Client(e.ConnectionId).SendAsync("ReceiveMessage", model); //, $"{user.Nom} {user.Prenom}"
                     });
                 }
                 else
                 {
-                    var connectionId = ConnectedUser.dict.Values.Where(e => e.IdUser == model.IdReceiver).Select(e => e.ConnectionId).FirstOrDefault();
+                    var connectionId = ConnectedUser.dict.Values.Where(e => e.IdUser == model.IdCollaboratteur).Select(e => e.ConnectionId).FirstOrDefault();
                     if (connectionId != null)
                     {
                         await _chatHub.Clients.Client(connectionId).SendAsync("ReceiveMessage", model);

@@ -69,4 +69,8 @@ export class SessionService {
   get isUser() {
     return this.user.idRole === 3;
   }
+
+  get isFinancier() {
+    return this.user.idRole === 4;
+  }
 }

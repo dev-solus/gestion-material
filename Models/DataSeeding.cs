@@ -57,8 +57,8 @@ namespace Models
         public static ModelBuilder Services(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Service>().HasData(new Service[]{
-                new Service {Id = 1, Nom = "ANDA", IdDepartement = 1},
-                new Service {Id = 2, Nom = "DG/", IdDepartement = 2},
+                new Service {Id = 1, Nom = "DG/", IdDepartement = 1},
+                new Service {Id = 2, Nom = "ANDA", IdDepartement = 2},
                 new Service {Id = 3, Nom = "DIPA/", IdDepartement = 3},
                 new Service {Id = 4, Nom = "DIPE/", IdDepartement = 4},
                 // new Service {Id = 4, Nom = "DIPA/SAT", IdDepartement = 1},
@@ -84,16 +84,10 @@ namespace Models
         public static ModelBuilder Fonctions(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Fonction>().HasData(new Fonction[]{
-                new Fonction {Id = 1, Nom = "ASSISTANCE"},
-                new Fonction {Id = 2, Nom = "ASSISTANT"},
-                new Fonction {Id = 3, Nom = "ASSISTANTE"},
+                new Fonction {Id = 1, Nom = "CHEF DE DEPARTEMENT"},
+                new Fonction {Id = 2, Nom = "CHEF DE SERVICE"},
+                new Fonction {Id = 3, Nom = "ASSISTANT"},
                 new Fonction {Id = 4, Nom = "CADRE"},
-                new Fonction {Id = 5, Nom = "CHAUFFEUR"},
-                new Fonction {Id = 6, Nom = "CHEF DE DEPARTEMENT"},
-                new Fonction {Id = 7, Nom = "CHEF DE SERVICE"},
-                new Fonction {Id = 8, Nom = "DIRECTRICE"},
-                new Fonction {Id = 9, Nom = "Trésorier "},
-                new Fonction {Id = 10, Nom = "VIRTUAL"},
             });
 
             return modelBuilder;
@@ -211,6 +205,7 @@ namespace Models
         new Role {Id = 1, Name = "admin"},
         new Role {Id = 2, Name = "agentSi"},
         new Role {Id = 3, Name = "user"},
+        new Role {Id = 4, Name = "financier"},
       });
 
             return modelBuilder;
@@ -474,10 +469,10 @@ namespace Models
         {
             modelBuilder.Entity<User>().HasData(new User[]{
 
-        new User { Id = 1,  Nom = "Mourabit", Prenom = "mohamed", IdRole = 1, Matricule = "730533", Email = "admin@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 1 , IdFonction = 7},
-        new User { Id = 2,  Nom = "Hicham", Prenom = "Amakhlouf", IdRole = 2, Matricule = "1042706", Email = "agentSI@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 2 , IdFonction = 1},
-        new User { Id = 3,  Nom = "mehdi", Prenom = "tamika", IdRole = 3, Matricule = "1059644", Email = "user@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 3 , IdFonction = 5},
-        // new User { Id = 4,  Nom = "Kohler", Prenom = "Lavina", IdRole = 2, Matricule = "1059683", Email = "Mayert-4@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 18 , IdFonction = 4},
+        new User { Id = 1,  Nom = "Mourabit", Prenom = "mohamed", IdRole = 1, Matricule = "730533", Email = "admin@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 1 , IdFonction = 1},
+        new User { Id = 2,  Nom = "Hicham", Prenom = "Amakhlouf", IdRole = 2, Matricule = "1042706", Email = "agentSI@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 2 , IdFonction = 2},
+        new User { Id = 3,  Nom = "mehdi", Prenom = "tamika", IdRole = 3, Matricule = "1059644", Email = "user@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 3 , IdFonction = 3},
+        new User { Id = 4,  Nom = "yassin", Prenom = "fathi", IdRole = 2, Matricule = "1059683", Email = "financier@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 4 , IdFonction = 4},
         // new User { Id = 5,  Nom = "Ferry", Prenom = "Sid", IdRole = 3, Matricule = "1434298", Email = "Jaskolski-5@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 6 , IdFonction = 6},
         // new User { Id = 6,  Nom = "Hickle", Prenom = "Gavin", IdRole = 3, Matricule = "1678576", Email = "Grady-6@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 14 , IdFonction = 4},
         // new User { Id = 7,  Nom = "Harvey", Prenom = "Lyla", IdRole = 3, Matricule = "1678577", Email = "Carroll-7@angular.io", Password = "123", CodeOfVerification = "", EmailVerified = true, IsActive = true, IdService = 16 , IdFonction = 10},

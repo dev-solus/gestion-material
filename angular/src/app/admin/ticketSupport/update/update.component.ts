@@ -144,7 +144,8 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.myFormChat = this.fb.group({
       id: [this.chat.id, [Validators.required,]],
       idSender: [this.session.user.id, [Validators.required,]],
-      idReceiver: [this.chat.idReceiver],
+      senderName: [this.session.user.nom + ' ' + this.session.user.prenom],
+      idCollaboratteur: [this.chat.idCollaboratteur],
       message: [this.chat.message],
       vu: [this.chat.vu, [Validators.required,]],
       date: [this.chat.date, [Validators.required,]],
@@ -158,7 +159,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   send(o: Chat) {
     console.log(o);
-    o.idReceiver = this.o.idCollaborateur;
+    o.idCollaboratteur = this.o.idCollaborateur;
     this.uow.chats.post(o).subscribe(r => {
       this.chats.push(o);
       this.myFormChat.get('message').patchValue('');

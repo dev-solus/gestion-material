@@ -131,8 +131,8 @@ namespace Api
 
             services.AddDbContext<MyContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("msi"));
-                // options.UseSqlite(Configuration.GetConnectionString("sqlite"));
+                // options.UseSqlServer(Configuration.GetConnectionString("msi"));
+                options.UseSqlite(Configuration.GetConnectionString("sqlite"));
             });
 
             // services.AddControllersWithViews()
@@ -142,7 +142,11 @@ namespace Api
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-            services.AddSignalR();
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+                o.MaximumReceiveMessageSize = 10240; // bytes
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -171,13 +175,12 @@ namespace Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("CorsPolicy");
             }
             else
             {
 
-            }
-
-            app.Use(async (context, next) =>
+                app.Use(async (context, next) =>
                {
                    await next();
 
@@ -187,10 +190,13 @@ namespace Api
                        await next();
                    }
                });
+            }
+
+            
 
 
 
-            app.UseCors("CorsPolicy");
+            
             app.UseMiddleware<ErrorHandler>();
             app.UseHttpsRedirection();
 

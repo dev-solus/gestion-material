@@ -26,7 +26,8 @@ export class TicketSupport {
 export class Chat {
   id = 0;
   idSender = 0;
-  idReceiver = null;
+  senderName = '';
+  idCollaboratteur = null;
   message = '';
   vu = false;
   date = new Date();

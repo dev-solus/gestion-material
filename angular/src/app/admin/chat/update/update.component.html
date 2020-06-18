@@ -18,7 +18,7 @@
 
 <mat-form-field appearance="fill" class="col-md-6">
                     <mat-label>receivers</mat-label>
-                    <mat-select formControlName="idReceiver" readonly>
+                    <mat-select formControlName="idCollaboratteur" readonly>
                         <mat-option *ngFor="let e of receivers | async" [value]="e.id">{{ e.nom }}</mat-option>
                     </mat-select>
                 </mat-form-field>

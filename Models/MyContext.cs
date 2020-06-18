@@ -61,14 +61,14 @@ namespace Models
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.IdSender);
-                entity.Property(e => e.IdReceiver);
+                entity.Property(e => e.IdCollaboratteur);
                 entity.Property(e => e.Message);
                 entity.Property(e => e.Vu);
                 entity.Property(e => e.Date);
                 entity.Property(e => e.IdTicketSupport);
                 entity.HasOne(d => d.TicketSupport).WithMany(p => p.TicketSupportChats).HasForeignKey(d => d.IdTicketSupport);
                 entity.HasOne(d => d.Sender).WithMany(p => p.SenderChats).HasForeignKey(d => d.IdSender);
-                entity.HasOne(d => d.Receiver).WithMany(p => p.ReceiverChats).HasForeignKey(d => d.IdReceiver);
+                entity.HasOne(d => d.Receiver).WithMany(p => p.ReceiverChats).HasForeignKey(d => d.IdCollaboratteur);
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -101,7 +101,7 @@ namespace Models
                 entity.HasMany(d => d.CollaborateurAffectations).WithOne(p => p.Collaborateur).HasForeignKey(d => d.IdCollaborateur).OnDelete(DeleteBehavior.NoAction);
                 entity.HasMany(d => d.CollaborateurTicketSupports).WithOne(p => p.Collaborateur).HasForeignKey(d => d.IdCollaborateur).OnDelete(DeleteBehavior.NoAction);
                 entity.HasMany(d => d.SenderChats).WithOne(p => p.Sender).HasForeignKey(d => d.IdSender).OnDelete(DeleteBehavior.NoAction);
-                entity.HasMany(d => d.ReceiverChats).WithOne(p => p.Receiver).HasForeignKey(d => d.IdReceiver).OnDelete(DeleteBehavior.NoAction);
+                entity.HasMany(d => d.ReceiverChats).WithOne(p => p.Receiver).HasForeignKey(d => d.IdCollaboratteur).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<Affectation>(entity =>

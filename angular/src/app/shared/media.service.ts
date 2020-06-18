@@ -21,7 +21,10 @@ export class MediaService {
     fromEvent(window, 'resize').pipe(
       auditTime(100),
       map((event: any) => {
-        return { width: event.currentTarget.innerWidth, height: event.currentTarget.innerHeight } as WindowSize;
+        return {
+          width: event.currentTarget ? event.currentTarget.innerWidth : 0,
+          height: event.currentTarget ? event.currentTarget.innerHeight : 0,
+        } as WindowSize;
       })
     ).subscribe((windowSize) => {
       this.windowSizeChanged.next(windowSize);

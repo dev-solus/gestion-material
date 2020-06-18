@@ -24,7 +24,7 @@ ticketSupports = this.uow.ticketSupports.get();
 
   /*{imagesInit}*/
 
-  
+
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
     , private fb: FormBuilder, private uow: UowService) { }
@@ -48,12 +48,12 @@ ticketSupports = this.uow.ticketSupports.get();
     let sub = null;
     if (o.id === 0) {
       sub = this.uow.chats.post(o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.chats.put(o.id, o).subscribe(r => {
-        
+
         this.dialogRef.close(o);
       });
     }
@@ -65,7 +65,7 @@ ticketSupports = this.uow.ticketSupports.get();
     this.myForm = this.fb.group({
       id: [this.o.id, [Validators.required, ]],
 idSender: [this.o.idSender, [Validators.required, ]],
-idReceiver: [this.o.idReceiver, [Validators.required, ]],
+idCollaboratteur: [this.o.idCollaboratteur, [Validators.required, ]],
 message: [this.o.message, [Validators.required, ]],
 vu: [this.o.vu, [Validators.required, ]],
 date: [this.o.date, [Validators.required, ]],

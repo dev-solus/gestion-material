@@ -5,7 +5,8 @@ namespace Models
 public partial class Chat 
 {public int Id { get; set; }
 public int IdSender { get; set; }
-public int? IdReceiver { get; set; }
+public string SenderName { get; set; }
+public int? IdCollaboratteur { get; set; }
 public string Message { get; set; }
 public bool Vu { get; set; }
 public DateTime Date { get; set; }

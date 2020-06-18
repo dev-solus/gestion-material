@@ -19,6 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     // FormsModule,
     BrowserAnimationsModule,
     LoaderModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      // maxOpened: 1,
+    }),
     // MatSnackBarModule,
     // MatProgressSpinnerModule,
   ],

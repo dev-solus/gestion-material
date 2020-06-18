@@ -2,7 +2,7 @@
         <form [formGroup]="myForm" (ngSubmit)="submit(myForm.value)">
             <div class="d-flex flex-column justify-content-center align-items-center">
 
-                <img class="mb-4 mt-3" src="assets/1.jpg" alt="logo" height="150">
+                <img class="mb-4 mt-3" src="assets/logo.png" alt="logo" width="100%">
 
 
                 <h1>Bienvenue</h1>
@@ -31,9 +31,11 @@
                         <span style="cursor: pointer;" [routerLink]="['/auth/reset']">Mot de passe oublié?</span>
                       </div>
                       <div class="d-flex flex-column mt-2 mb-2">
-                        <p style="cursor: pointer;">admin@angular.io</p>
-                        <p style="cursor: pointer;">agentSI@angular.io</p>
-                        <p style="cursor: pointer;">user@angular.io</p>
+                      <span>Compte en fonction du Role :</span>
+                      <button mat-button type="button" (click)="myForm.get('email').patchValue('admin@angular.io')">Admin</button>
+                      <button mat-button type="button" (click)="myForm.get('email').patchValue('agentSI@angular.io')">Agent SI</button>
+                      <button mat-button type="button" (click)="myForm.get('email').patchValue('user@angular.io')">Collaborateur</button>
+                      <button mat-button type="button" (click)="myForm.get('email').patchValue('financier@angular.io')">Financier</button>
                       </div>
                 </div>
             </div>
