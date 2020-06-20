@@ -1,0 +1,33 @@
+<mat-toolbar color="warn" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <span>System-info</span>
+    <span style="flex: 1 1 auto;"></span>
+
+    <button mat-raised-button [routerLink]="['/admin']">Back-office</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container" style="height: calc(100vh - 64px);">
+  <div class="row justify-content-center align-items-center" style="height: 90%;">
+    <div class="col-md-6 d-flex flex-column">
+      <img src="assets/desktop.png" alt="" srcset="" width="100%">
+    </div>
+
+    <div class="col-md-6 ">
+      <h1 style="color: #f44336;font-weight: bold;">System-info</h1>
+      <p style="line-height: normal;">
+        System-info est un logiciel qui collecte des informations sur certains des principaux appareils de votre
+        système: les informations système (cpu, gpu, network, bios, model, ram ...), et établie une liste des
+        applications installé sur l'appareil.
+      </p>
+      <div class="d-flex flex-column mt-5">
+
+        <button class="btn" color="warn" mat-raised-button (click)="download()">
+          <mat-icon>cloud_download</mat-icon> Telecharger
+        </button>
+
+        <span style="font-size: .8em; color: gray; margin-top: 10px;">Windows 32/64 bit</span>
+      </div>
+    </div>
+  </div>
+</div>

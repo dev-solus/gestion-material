@@ -1,0 +1,14 @@
+version: 0.0.0
+files:
+  - url: sys-info.exe
+    sha512: PMhib02AQMp7bkSpLk9HvRXz+19LO65VSApkHeWgx2LyML3crvFL4U1ut+UWrDrIX51eh4OzdiwLiGxnvtF6Bw==
+path: sys-info.exe
+sha512: PMhib02AQMp7bkSpLk9HvRXz+19LO65VSApkHeWgx2LyML3crvFL4U1ut+UWrDrIX51eh4OzdiwLiGxnvtF6Bw==
+packages:
+  ia32:
+    size: 48259664
+    sha512: wLqWykqzNRTU8jchOJjeKaXBTKaSZq3LWyqTYqVZ3+RcRQvDqp0eyb8WPRGVU0GwtUQRbjdtJYSHgJUyWbt89Q==
+    blockMapSize: 51622
+    path: electron-0.0.0-ia32.nsis.7z
+    file: electron-0.0.0-ia32.nsis.7z
+releaseDate: '2020-06-20T14:49:30.802Z'

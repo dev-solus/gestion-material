@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-const port = '5002';
+const port = '5000';
 const host = 'http://localhost';
 
 const apiUrl = `${host}:${port}/api`;
