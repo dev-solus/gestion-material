@@ -13,7 +13,7 @@ export class DesktopComponent implements OnInit {
   }
 
   download() {
-    const appname = 'electron-0.0.0-ia32.nsis.7z';//'sys-info.exe';
+    const appname = 'electron-0.0.0-ia32.nsis.7z'; // 'sys-info.exe';
     const url = `${this.url}/download/${appname}`;
     window.open(url);
   }
