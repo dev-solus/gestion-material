@@ -36,8 +36,8 @@ npm run f
 - Dans l'ongle `Deploy`, choisie comme `Deployment method` GitHub, connectez-vous après choisie votre repo est cliqué sur `connect` -> `Enable Automatic Deploy`
 
 
-### pour deployer le projet sur heroku.com : 
-cette commande (plus de detail dans package.json -> scripts) va pushe les changement dans votre repo, puis Heroku ecoute les action faite sur votre repo alors ila copy et builder votre app , et le site sera actualiser
+### pour deployer le projet sur Heroku : 
+Cette commande au dessous (plus de detail dans package.json -> scripts) va pushe les changement dans votre repo, puis Heroku ecoute les action faite sur votre repo alors ila copy et builder votre app , et le site sera actualiser
 ```
 npm run ci 
 ```
