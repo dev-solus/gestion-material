@@ -3,7 +3,7 @@
 ## Le projet à éte developpé par les technologies suivantes : 
 [ASP.net Core 3.1 SDK](https://dotnet.microsoft.com/download)
 
-[Node js](https://nodejs.org/en/download/) & [Angular 9](https://cli.angular.io/) : 
+[Node js et NPM](https://nodejs.org/en/download/) & [Angular 9](https://cli.angular.io/) : 
 
 ## Etape d'instalation : 
 
@@ -29,13 +29,16 @@ npm run f
 
 ### configurer heroku pour deploye l'application
 
-    - cree un compte [Heroku](https://www.heroku.com/)
-    - dans le dashborad clicke sur new => create a new app
-    - donner un nom a l'aaplication et choisie un la region proche a vous => create app
-    - dans l'ongle Settings -> add Buildpacks : https://github.com/anuraj/dotnetcore-buildpack (pour qui heroku supprt ASP.NET Core)
-    - dans l'ongle deploy, choisie comme `Deployment method` GitHub, connectez-vous apres choisie votre repo est clicke sur connect -> enable Automatic Deploy
+- Crée un compte [Heroku](https://www.heroku.com/)
+- Dans le Dashboard clique sur new => `create a new app`
+- Donner un nom à l'application et choisie un la région proche a vous => `create app`
+- Dans l'ongle Settings -> `add Buildpacks` : https://github.com/anuraj/dotnetcore-buildpack (pour qui Heroku support ASP.NET Core)
+- Dans l'ongle `Deploy`, choisie comme `Deployment method` GitHub, connectez-vous après choisie votre repo est cliqué sur `connect` -> `Enable Automatic Deploy`
+
 
 ### pour deployer le projet sur heroku.com : 
 cette commande (plus de detail dans package.json -> scripts) va pushe les changement dans votre repo, puis Heroku ecoute les action faite sur votre repo alors ila copy et builder votre app , et le site sera actualiser
+```
 npm run ci 
+```
 
