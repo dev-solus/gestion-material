@@ -1,11 +1,11 @@
 # App web Gestion material
 
 ## Le projet à éte developpé par les technologies suivantes : 
-[ASP.net Core 3.1 SDK](https://dotnet.microsoft.com/download)
+[ASP.net Core 3.1 SDK] :(https://dotnet.microsoft.com/download)
 
-[Node js et NPM](https://nodejs.org/en/download/) & [Angular 9](https://cli.angular.io/) : 
+[Node js et NPM] :(https://nodejs.org/en/download/) & [Angular 9](https://cli.angular.io/) : 
 
-## Etape d'instalation : 
+## Les étapes d'instalation : 
 
 ### la commande pour récuperer le repository du git est : 
 ```
@@ -17,27 +17,27 @@ get clone  https://github.com/djm2x/gestion-material.git
 npm run install
 ```
 
-### pour le lancer le back-end asp.net core restful api :
+### pour le lancer le back-end asp.net core restful api éxécuter la commande suivante : 
 ```
 npm run b
 ```
 
-### pour lancer le projet front-end angular : 
+### pour lancer le projet front-end angular éxécuter la commande suivante :  
 ```
 npm run f 
 ```
 
-### configurer heroku pour deploye l'application
+### configuration deheroku pour le deploiment de l'application
 
-- Crée un compte [Heroku](https://www.heroku.com/)
-- Dans le Dashboard clique sur new => `create a new app`
-- Donner un nom à l'application et choisie un la région proche a vous => `create app`
+- Crée un compte sur [Heroku](https://www.heroku.com/)
+- Dans le Dashboard cliquer sur new => `create a new app`
+- Attribuer un nom à l'application et choisissez  la région la plus proche de vous => `create app`
 - Dans l'ongle Settings -> `add Buildpacks` : https://github.com/anuraj/dotnetcore-buildpack (pour qui Heroku support ASP.NET Core)
-- Dans l'ongle `Deploy`, choisie comme `Deployment method` GitHub, connectez-vous après choisie votre repo est cliqué sur `connect` -> `Enable Automatic Deploy`
+- Dans l'ongle `Deploy`, choisir comme `Deployment method` GitHub, connectez-vous après avoir choisie votre repo est cliqué sur `connect` -> `Enable Automatic Deploy`
 
 
 ### pour deployer le projet sur Heroku : 
-Cette commande au dessous (plus de detail dans package.json -> scripts) va pushe les changement dans votre repo, puis Heroku ecoute les action faite sur votre repo alors ila copy et builder votre app , et le site sera actualiser
+Cette commande au dessous (plus de detail dans package.json -> scripts) va pushe les changement dans votre repo, puis Heroku recoit les action faite sur votre repo alors ila copy et builder votre app , et le site sera actualiser
 ```
 npm run ci 
 ```
