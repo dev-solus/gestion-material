@@ -64,8 +64,12 @@ export class CreateComponent implements OnInit {
   submit(o: User) {
 
     this.uow.accounts.create('auth/login'.replace(/\//g, '%2F'), o).subscribe((r: any) => {
-      this.snackBar.notifyOk(200, `Lien d'activation a été envoyer a votre email`);
-      this.router.navigate(['/auth']);
+      if (r.code < 0) {
+        this.snackBar.notifyAlert(400, r.message);
+      } else {
+        this.snackBar.notifyOk(200, `Lien d'activation a été envoyer a votre email`);
+        this.router.navigate(['/auth']);
+      }
     });
   }
 

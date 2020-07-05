@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
 
   messageInComing() {
     this.chat.messageReceived.pipe( /*debounceTime(300),*/distinctUntilChanged()).subscribe(async (r: Chat) => {
-      console.log(r);
+      // console.log(r);
       this.toastrChat(r);
 
     });

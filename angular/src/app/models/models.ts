@@ -51,7 +51,7 @@ export class User {
   password = '';
   codeOfVerification = '';
   emailVerified = false;
-  isActive = true;
+  isActive = false;
   idService = 0;
   idFonction = 0;
   idRole = 0;

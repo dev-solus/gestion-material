@@ -30,28 +30,32 @@ export class AffectationComponent implements OnInit, OnDestroy {
   dataSource: Affectation[] = [];
   selectedList: Affectation[] = [];
 
-  displayedColumns = ['select',  'action', 'date', 'equipement', 'emplacement', 'collaborateur', 'agentSi', 'option'];
+  displayedColumns = ['select', 'action', 'date', 'equipement', 'emplacement', 'collaborateur', 'agentSi', 'option'];
 
   panelOpenState = false;
 
   action = new FormControl('');
-idEquipement = new FormControl(0);
-idEmplacement = new FormControl(0);
-idCollaborateur = new FormControl(0);
-idAgentSi = new FormControl(0);
+  idEquipement = new FormControl(0);
+  idEmplacement = new FormControl(0);
+  idCollaborateur = new FormControl(0);
+  idAgentSi = new FormControl(0);
 
 
   equipements = this.uow.equipements.get();
-emplacements = this.uow.emplacements.get();
-collaborateurs = this.uow.users.get();
-agentSis = this.uow.users.get();
+  emplacements = this.uow.emplacements.get();
+  collaborateurs = [];
+  agentSis = [];
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string 
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string
     , public session: SessionService) { }
 
   ngOnInit() {
+    this.uow.users.get().subscribe(r => {
+      this.collaborateurs = r.filter(e => e.idRole === 3);
+      this.agentSis = r.filter(e => e.idRole === 2);
+    } );
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
       r => {
         r === true ? this.paginator.pageIndex = 0 : r = r;
@@ -94,15 +98,15 @@ agentSis = this.uow.users.get();
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, action, idEquipement, idEmplacement, idCollaborateur, idAgentSi,) {
-    const sub = this.uow.affectations.getAll(startIndex, pageSize, sortBy, sortDir,  action, idEquipement
-      , idEmplacement, idCollaborateur, idAgentSi,).subscribe(
-      (r: any) => {
-        console.log(r.list);
-        this.dataSource = r.list;
-        this.resultsLength = r.count;
-        this.isLoadingResults = false;
-      }
-    );
+    const sub = this.uow.affectations.getAll(startIndex, pageSize, sortBy, sortDir, action, idEquipement
+      , idEmplacement, idCollaborateur, idAgentSi).subscribe(
+        (r: any) => {
+          console.log(r.list);
+          this.dataSource = r.list;
+          this.resultsLength = r.count;
+          this.isLoadingResults = false;
+        }
+      );
 
     this.subs.push(sub);
   }

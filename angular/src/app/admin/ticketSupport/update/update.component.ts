@@ -74,6 +74,11 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
   messageInComing() {
     this.chatHub.messageReceived.pipe( /*debounceTime(300),*/distinctUntilChanged()).subscribe((r: Chat) => {
       console.log(r);
+
+      const i = this.chats.findIndex(e => e.id === r.id);
+
+      if (i === -1) {
+      }
       this.chats.push(r);
     });
   }

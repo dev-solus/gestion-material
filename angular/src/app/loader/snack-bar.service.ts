@@ -38,7 +38,7 @@ export class SnackBarService {
   notifyOk(code, message: string) {
     const config = {
       panelClass: ['green-snackbar'],
-      duration: 1500,
+      duration: 2500,
       // horizontalPosition: this.horizontalPosition,
       // verticalPosition: this.verticalPosition,
     };
@@ -49,7 +49,7 @@ export class SnackBarService {
   notifyAlert(code, message: string) {
     const config = {
       panelClass: ['alert-snackbar'],
-      duration: 1500
+      duration: 3500
     };
 
     this.snackBar.open(message, null, config);

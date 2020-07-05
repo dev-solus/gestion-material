@@ -43,10 +43,17 @@ namespace Controllers
         [HttpPost("{returnUrl}")]
         public async Task<ActionResult<User>> Create(string returnUrl, User model)
         {
+            var user = await _context.Users.Where(e => e.Email == model.Email).FirstOrDefaultAsync();
+
+            if (user != null)
+            {
+                return Ok(new { message = "Email est pas disponible", code = -1 });
+            }
+
             try
             {
                 model.CodeOfVerification = $"{model.Email}*{DateTime.Now}";
-                
+
                 _context.Users.Add(model);
                 await _context.SaveChangesAsync();
 
@@ -65,7 +72,7 @@ namespace Controllers
 
                 _emailService.SendEmailAsync(model.Email, subject, html);
 
-                
+
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -75,7 +82,7 @@ namespace Controllers
             return Ok(model);
         }
 
-         [HttpGet("{code}")]
+        [HttpGet("{code}")]
         public async Task<ActionResult<User>> ActiveAccount(string code)
         {
             var codeBasic = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
@@ -87,18 +94,25 @@ namespace Controllers
                 return Ok(new { message = "code incorrect", code = -1 });
             }
 
+
+
             user.EmailVerified = true;
 
             try
             {
                 await _context.SaveChangesAsync();
 
-                 var claims = new Claim[]
-                    {
+                var claims = new Claim[]
+                   {
                         new Claim(ClaimTypes.Name, user.Id.ToString()),
                         new Claim(ClaimTypes.Email, user.Email),
                         new Claim(ClaimTypes.Role, user.IdRole.ToString()),
-                    };
+                   };
+
+                if (user.IsActive == false)
+                {
+                    return Ok(new { message = "Veuillez patienter que votre compte soit active par l'administration", code = -2 });
+                }
 
                 return Ok(new { code = 1, user, token = _tokkenHandler.GenerateTokken(claims) });
 
@@ -109,7 +123,7 @@ namespace Controllers
             }
         }
 
-        
+
 
         [HttpGet("{email}/{returnUrl}/{lang}")]
         public async Task<ActionResult> SendEmailForResetPassword(string email, string returnUrl, string lang)
@@ -191,7 +205,7 @@ namespace Controllers
 
             if (user.Password == model.Password)
             {
-                
+
 
                 // remove password before returning
                 user.Password = "";
@@ -200,7 +214,7 @@ namespace Controllers
                 {
                     return Ok(new { message = "Veuillez consulter votre boite email pour activer votre compte.", code = -1 });
                 }
-                
+
                 if (user.IsActive == false)
                 {
                     return Ok(new { message = "Veuillez patienter que votre compte soit active par l'administration", code = -2 });

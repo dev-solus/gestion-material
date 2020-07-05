@@ -23,6 +23,14 @@ body {
   --primary: #f44336;
 }
 
+.alert-snackbar {
+  background-color: var(--primary);
+}
+
+.green-snackbar {
+  background-color: green;
+}
+
 // dialogue css
 .dialog {
   overflow-x: hidden !important;

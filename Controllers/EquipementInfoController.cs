@@ -22,11 +22,14 @@ namespace Controllers
         [HttpGet("{startIndex}/{pageSize}/{sortBy}/{sortDir}/{nSerie}/{model}/{nom}")]
         public async Task<IActionResult> GetAll(int startIndex, int pageSize, string sortBy, string sortDir, string nSerie, string model, string nom)
         {
+            var idRole = HttpContext.GetRoleUser();
+            var idUser = HttpContext.GetIdUser();
+
             var q = _context.EquipementInfos
                 .Where(e => nSerie == "*" ? true : e.NSerie.ToLower().Contains(nSerie.ToLower()))
                 .Where(e => model == "*" ? true : e.Model.ToLower().Contains(model.ToLower()))
                 .Where(e => nom == "*" ? true : e.Nom.ToLower().Contains(nom.ToLower()))
-
+                // .Where(e => idRole != 3 ? true : _context.Equipements.Any(o => o.NSerie == e.NSerie))
                 ;
 
             int count = await q.CountAsync();
@@ -44,9 +47,9 @@ namespace Controllers
                     date = e.Date,
                     InfoSystemeHtml = e.InfoSystemeHtml,
                     SoftwareHtml = e.SoftwareHtml,
-                    user = _context.Affectations    
+                    user = _context.Affectations
                         .Where(o => o.Equipement.NSerie == e.NSerie)
-                        .Select(s => s.Collaborateur.Nom + " " + s.Collaborateur.Prenom )
+                        .Select(s => s.Collaborateur.Nom + " " + s.Collaborateur.Prenom)
                         .FirstOrDefault()
                 })
                 .ToListAsync()
