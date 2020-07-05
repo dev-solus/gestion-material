@@ -61,9 +61,6 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.chats = r as any;
         });
       });
-
-
-
     }
 
     this.scrollToBottom();
@@ -108,14 +105,14 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
         console.log(this.o);
         this.createForm();
         this.myFormChat.get('idTicketSupport').setValue(this.o.id);
-        this.myFormChat.get('idReceiver').setValue(this.o.idCollaborateur);
+        this.myFormChat.get('idCollaboratteur').setValue(this.o.idCollaborateur);
         this.router.navigate(['/admin/ticketSupport/update', this.o.id]);
         // this.dialogRef.close(o);
       });
     } else {
       sub = this.uow.ticketSupports.put(o.id, o).subscribe(r => {
         // this.router.navigate(['/admin/ticketSupport']);
-
+        this.o = o;
         // this.dialogRef.close(o);
       });
     }

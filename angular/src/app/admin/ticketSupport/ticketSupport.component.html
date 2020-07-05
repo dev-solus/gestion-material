@@ -92,8 +92,8 @@
         <td mat-cell *matCellDef="let row">{{row.collaborateur}}</td>
       </ng-container>
       <ng-container matColumnDef="isClosed">
-        <th mat-header-cell *matHeaderCellDef>isClosed</th>
-        <td mat-cell *matCellDef="let row">{{row.isClosed}}</td>
+        <th mat-header-cell *matHeaderCellDef>fermé</th>
+        <td mat-cell *matCellDef="let row">{{row.isClosed ? 'Oui' : 'Non'}}</td>
       </ng-container>
       <ng-container matColumnDef="unreaderMessage">
         <th mat-header-cell *matHeaderCellDef>unreaderMessage</th>
@@ -112,7 +112,7 @@
         <td mat-cell *matCellDef="let row">
           <div class="button-row">
             <button mat-icon-button color="primary" [routerLink]="['/admin/ticketSupport/update', row.id]">
-              <mat-icon>create</mat-icon>
+              <mat-icon>pan_tool</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="delete(row.id)">
               <mat-icon>delete_sweep</mat-icon>

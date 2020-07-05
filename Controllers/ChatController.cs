@@ -72,7 +72,7 @@ namespace Controllers
                     Vu = e.Vu,
                     Date = e.Date,
                     IdSender = e.IdSender,
-                    Sender = e.Sender.Nom,
+                    SenderName = e.SenderName,
                 })
                 .ToListAsync()
                 ;

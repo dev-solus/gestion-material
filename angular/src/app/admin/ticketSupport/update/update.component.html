@@ -3,54 +3,57 @@
 <div class="mt-3">
 
 
-    <form [formGroup]="myForm">
-      <mat-form-field appearance="fill" class="col-md-8">
-        <mat-label>question</mat-label>
-        <input matInput formControlName="question" required>
-      </mat-form-field>
+  <form [formGroup]="myForm">
+    <mat-form-field appearance="fill" class="col-md-8">
+      <mat-label>question</mat-label>
+      <input matInput formControlName="question" required [readonly]="o.isClosed">
+    </mat-form-field>
 
-      <!-- <mat-form-field appearance="fill" class="col-md-12">
+    <!-- <mat-form-field appearance="fill" class="col-md-12">
         <mat-label>dateCreation</mat-label>
         <input matInput [matDatepicker]="picker2" formControlName="dateCreation">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field> -->
 
-      <mat-form-field appearance="fill" class="col-md-2">
-        <mat-label>priorite</mat-label>
-        <mat-select formControlName="priorite" readonly>
-          <mat-option *ngFor="let e of priorites" [value]="e">{{ e}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field appearance="fill" class="col-md-2">
+      <mat-label>priorite</mat-label>
+      <mat-select formControlName="priorite" [disabled]="o.isClosed">
+        <mat-option *ngFor="let e of priorites" [value]="e">{{ e}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <mat-checkbox class="col-md-2" formControlName="isClosed" labelPosition="before">
-        close
-      </mat-checkbox>
+    <mat-checkbox [disabled]="o.isClosed" class="col-md-2" formControlName="isClosed" labelPosition="before">
+      close
+    </mat-checkbox>
 
-      <!-- <mat-form-field appearance="fill" class="col-md-6">
+    <!-- <mat-form-field appearance="fill" class="col-md-6">
         <mat-label>collaborateurs</mat-label>
         <mat-select formControlName="idCollaborateur" readonly>
           <mat-option *ngFor="let e of collaborateurs | async" [value]="e.id">{{ e.nom }}</mat-option>
         </mat-select>
       </mat-form-field> -->
 
-      <div class="d-flex flex-row-reverse mt-3 mb-3">
-        <button mat-raised-button color="primary" (click)="submit(myForm.value)">
-          <mat-icon>add</mat-icon> Valider
-        </button>
-      </div>
+    <div class="d-flex flex-row-reverse mt-3 mb-3" *ngIf="!o.isClosed">
+      <button mat-raised-button color="primary" (click)="submit(myForm.value)">
+        <mat-icon>add</mat-icon> Valider
+      </button>
+    </div>
 
 
-    </form>
-    <mat-divider></mat-divider>
+  </form>
+  <mat-divider></mat-divider>
+  <section *ngIf="o.id !== 0">
     <div class="chat mt-2" #scrollMe>
-      <mat-card *ngFor="let e of chats; let i=index" class="mb-2" [ngClass]="{'ml': isYou(e.idSender), 'mr': !isYou(e.idSender)}">
+      <mat-card *ngFor="let e of chats; let i=index" class="mb-2"
+        [ngClass]="{'ml': isYou(e.idSender), 'mr': !isYou(e.idSender)}">
 
         <p>{{e.message}}</p>
 
-        <div class="d-flex flex-row-reverse align-items-center w-100"  style="font-size: .8em; font-style: italic;">
+        <div class="d-flex flex-row-reverse align-items-center w-100" style="font-size: .8em; font-style: italic;">
           <span class="text-muted">{{e.date | date : "dd/MM/yyyy HH:mm"}}</span>
-          <span class="text-muted">par {{isYou(e.idSender) ? session.user.nom : e.sender}} - </span>
+          <span class="text-muted">{{isYou(e.idSender) ? session.user.prenom + ' ' + session.user.nom : e.senderName}} -
+          </span>
         </div>
 
         <!-- {{displayName(userToSend)}} -->
@@ -61,13 +64,14 @@
     <form [formGroup]="myFormChat">
       <mat-form-field appearance="fill" class="col-md-12">
         <mat-label>Message</mat-label>
-        <input matInput formControlName="message">
-        <button mat-icon-button matSuffix [disabled]="o.id === 0 || myFormChat.get('message').value === ''" (click)="send(myFormChat.value)">
+        <input matInput [readonly]="o.isClosed" formControlName="message">
+        <button mat-icon-button matSuffix [disabled]="o.id === 0 || myFormChat.get('message').value === '' || o.isClosed"
+          (click)="send(myFormChat.value)">
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>
     </form>
 
-
+  </section>
 
 </div>

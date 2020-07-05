@@ -31,7 +31,7 @@ namespace Services
             // generate code
             var code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(codeBasic));
             // create link to be send to email
-            var callbackUrl = $"{request.Scheme}://{request.Host}{request.PathBase}/{returnUrl}/{code}";
+            var callbackUrl = $"{request.Scheme}://{request.Host}{request.PathBase}/a/{returnUrl}/{code}";
             
             if (_env.IsDevelopment())
             {
@@ -49,7 +49,7 @@ namespace Services
         public string GetUrl(HttpRequest request, string sub = "")
         {
             // create link to be send to email
-            var url = $"{request.Scheme}://{request.Host}{request.PathBase}/{sub}";
+            var url = $"{request.Scheme}://{request.Host}{request.PathBase}/a/{sub}";
             
             if (_env.IsDevelopment())
             {
@@ -70,7 +70,7 @@ namespace Services
             // generate code
             var code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(codeBasic));
             // create link to be send to email
-            var callbackUrl = $"{request.Scheme}://{request.Host}{request.PathBase}/{returnUrl}/{code}";
+            var callbackUrl = $"{request.Scheme}://{request.Host}{request.PathBase}/a/{returnUrl}/{code}";
             
             if (_env.IsDevelopment())
             {
