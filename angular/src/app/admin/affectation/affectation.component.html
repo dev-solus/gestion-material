@@ -5,7 +5,7 @@
     <mat-icon>add</mat-icon> Affectation
   </button>
   &nbsp;
-  <button mat-raised-button color="accent" (click)="generateExcel()">
+  <button mat-raised-button color="accent" *ngIf="!session.isUser" (click)="generateExcel()">
     <mat-icon>cloud_download</mat-icon> Excel
   </button>
 </div>

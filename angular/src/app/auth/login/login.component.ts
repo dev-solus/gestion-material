@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.myForm = this.fb.group({
+
       email: [this.o.email, [Validators.required, Validators.email]],
       password: [this.o.password, [Validators.required]],
     });

@@ -5,7 +5,7 @@
     <mat-icon>add</mat-icon> Ticket Support
   </button>
   &nbsp;
-  <button mat-raised-button color="accent" (click)="generateExcel()">
+  <button mat-raised-button  *ngIf="!session.isUser" color="accent"  (click)="generateExcel()">
     <mat-icon>cloud_download</mat-icon> Excel
   </button>
 </div>
@@ -96,7 +96,7 @@
         <td mat-cell *matCellDef="let row">{{row.isClosed ? 'Oui' : 'Non'}}</td>
       </ng-container>
       <ng-container matColumnDef="unreaderMessage">
-        <th mat-header-cell *matHeaderCellDef>unreaderMessage</th>
+        <th mat-header-cell *matHeaderCellDef>Non lu</th>
         <td mat-cell *matCellDef="let row">
           <button mat-mini-fab [color]="row.unreaderMessage === 0 ? '' : 'accent'" [routerLink]="['/admin/ticketSupport/update', row.id]">
             {{row.unreaderMessage}}

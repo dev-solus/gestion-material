@@ -5,8 +5,10 @@ import { slideInAnimation } from '../shared/animations';
 import { MediaService } from '../shared/media.service';
 import { ChatHubService } from './chat.hub.service';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Chat } from '../models/models';
+import { Chat, User } from '../models/models';
 import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateComponent } from './account/update.component';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +21,7 @@ export class AdminComponent implements OnInit {
   isMobileWidth = false;
   constructor(public session: SessionService, private router: Router
     , public myMedia: MediaService, private chat: ChatHubService
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.myMedia.windowSizeChanged.subscribe(r => this.isMobileWidth = r.width <= 700);
@@ -71,6 +73,16 @@ export class AdminComponent implements OnInit {
   prepareRoute(outlet: RouterOutlet) {
     return '';
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(UpdateComponent, {
+      width: '750px',
+      disableClose: true,
+      data: { model: this.session.user, title: `` }
+    });
+
+    return dialogRef.afterClosed();
   }
 
 }

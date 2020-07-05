@@ -29,27 +29,27 @@ export class UserComponent implements OnInit, OnDestroy {
   dataSource: User[] = [];
   selectedList: User[] = [];
 
-  displayedColumns = ['select',  'nom', 'matricule', 'prenom', 'email', 'codeOfVerification', 'emailVerified', 'isActive', 'service', 'fonction', 'role', 'option'];
+  displayedColumns = ['select', 'nom', 'matricule', 'prenom', 'email', 'emailVerified', 'isActive', 'service', 'fonction', 'role', 'option'];
 
   panelOpenState = false;
 
   nom = new FormControl('');
-matricule = new FormControl('');
-prenom = new FormControl('');
-email = new FormControl('');
-codeOfVerification = new FormControl('');
-idService = new FormControl(0);
-idFonction = new FormControl(0);
-idRole = new FormControl(0);
+  matricule = new FormControl('');
+  prenom = new FormControl('');
+  email = new FormControl('');
+  codeOfVerification = new FormControl('');
+  idService = new FormControl(0);
+  idFonction = new FormControl(0);
+  idRole = new FormControl(0);
 
 
   services = this.uow.services.get();
-fonctions = this.uow.fonctions.get();
-roles = this.uow.roles.get();
+  fonctions = this.uow.fonctions.get();
+  roles = this.uow.roles.get();
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string ) { }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) { }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
@@ -64,13 +64,13 @@ roles = this.uow.roles.get();
           this.sort.active ? this.sort.active : 'id',
           this.sort.direction ? this.sort.direction : 'desc',
           this.nom.value === '' ? '*' : this.nom.value,
-this.matricule.value === '' ? '*' : this.matricule.value,
-this.prenom.value === '' ? '*' : this.prenom.value,
-this.email.value === '' ? '*' : this.email.value,
-this.codeOfVerification.value === '' ? '*' : this.codeOfVerification.value,
-this.idService.value === 0 ? 0 : this.idService.value,
-this.idFonction.value === 0 ? 0 : this.idFonction.value,
-this.idRole.value === 0 ? 0 : this.idRole.value,
+          this.matricule.value === '' ? '*' : this.matricule.value,
+          this.prenom.value === '' ? '*' : this.prenom.value,
+          this.email.value === '' ? '*' : this.email.value,
+          this.codeOfVerification.value === '' ? '*' : this.codeOfVerification.value,
+          this.idService.value === 0 ? 0 : this.idService.value,
+          this.idFonction.value === 0 ? 0 : this.idFonction.value,
+          this.idRole.value === 0 ? 0 : this.idRole.value,
 
         );
       }
@@ -81,13 +81,13 @@ this.idRole.value === 0 ? 0 : this.idRole.value,
 
   reset() {
     this.nom.setValue('');
-this.matricule.setValue('');
-this.prenom.setValue('');
-this.email.setValue('');
-this.codeOfVerification.setValue('');
-this.idService.setValue(0);
-this.idFonction.setValue(0);
-this.idRole.setValue(0);
+    this.matricule.setValue('');
+    this.prenom.setValue('');
+    this.email.setValue('');
+    this.codeOfVerification.setValue('');
+    this.idService.setValue(0);
+    this.idFonction.setValue(0);
+    this.idRole.setValue(0);
 
     this.update.next(true);
   }
@@ -101,7 +101,7 @@ this.idRole.setValue(0);
   }
 
   getPage(startIndex, pageSize, sortBy, sortDir, nom, matricule, prenom, email, codeOfVerification, idService, idFonction, idRole,) {
-    const sub = this.uow.users.getAll(startIndex, pageSize, sortBy, sortDir,  nom, matricule, prenom, email, codeOfVerification, idService, idFonction, idRole,).subscribe(
+    const sub = this.uow.users.getAll(startIndex, pageSize, sortBy, sortDir, nom, matricule, prenom, email, codeOfVerification, idService, idFonction, idRole,).subscribe(
       (r: any) => {
         console.log(r.list);
         this.dataSource = r.list;

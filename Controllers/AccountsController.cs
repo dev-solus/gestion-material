@@ -179,7 +179,11 @@ namespace Controllers
             if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
                 return Ok(new { message = "Login ou Mot sont vide", code = -4 });
 
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == model.Email);
+            var user = await _context.Users.Where(x => x.Email == model.Email)
+                .Include(e => e.Fonction)
+                .Include(e => e.Service)
+                .FirstOrDefaultAsync()
+            ;
 
             // check if Nom exists
             if (user == null)
@@ -192,11 +196,16 @@ namespace Controllers
                 // remove password before returning
                 user.Password = "";
 
+                if (user.EmailVerified == false)
+                {
+                    return Ok(new { message = "Veuillez consulter votre boite email pour activer votre compte.", code = -1 });
+                }
                 
                 if (user.IsActive == false)
                 {
                     return Ok(new { message = "Veuillez patienter que votre compte soit active par l'administration", code = -2 });
                 }
+
 
                 var claims = new Claim[]
                     {

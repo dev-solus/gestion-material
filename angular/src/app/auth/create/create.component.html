@@ -9,6 +9,16 @@
     <div class="">
 
       <mat-form-field appearance="fill" class="col-md-12 p-0">
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName="nom">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col-md-12 p-0">
+        <mat-label>Prenom</mat-label>
+        <input matInput formControlName="prenom">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="col-md-12 p-0">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" placeholder="Email address">
         <mat-error *ngIf="emailError">Email non valide</mat-error>

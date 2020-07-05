@@ -10,6 +10,7 @@ import { TicketSupport } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
+import { SessionService } from 'src/app/shared';
 
 @Component({
   selector: 'app-ticketSupport',
@@ -42,7 +43,7 @@ export class TicketSupportComponent implements OnInit, OnDestroy {
 
 
   constructor(private uow: UowService, public dialog: MatDialog, private excel: ExcelService
-    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string) { }
+    , private mydialog: DeleteService, @Inject('BASE_URL') private url: string, public session: SessionService) { }
 
   ngOnInit() {
     const sub = merge(...[this.sort.sortChange, this.paginator.page, this.update]).pipe(startWith(null as any)).subscribe(
