@@ -26,7 +26,7 @@
         <img src="assets/logo.png" alt="mourabit mohamed" width="100%">
       </div>
       <mat-divider></mat-divider>
-      <mat-list-item [routerLink]="['/admin/ticketSupport']" routerLinkActive="router-link-active">
+      <mat-list-item *ngIf="!session.isFinancier" [routerLink]="['/admin/ticketSupport']" routerLinkActive="router-link-active">
         <mat-icon>code</mat-icon>&nbsp;<span>Support technique</span>
         <mat-divider></mat-divider>
       </mat-list-item>

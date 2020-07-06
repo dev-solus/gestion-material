@@ -76,10 +76,10 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
       console.log(r);
 
       const i = this.chats.findIndex(e => e.id === r.id);
-
+      // this.chats = [...new Set(this.chats.map(item => item))]
       if (i === -1) {
+        this.chats.push(r);
       }
-      this.chats.push(r);
     });
   }
 
