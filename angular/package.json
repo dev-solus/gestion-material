@@ -31,12 +31,12 @@
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "xlsx": "^0.16.1",
-    "zone.js": "~0.11.8"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.19",
+    "@angular-devkit/build-angular": "~12.2.18",
     "gzipper": "^7.2.0",
-    "@angular/cli": "~11.2.19",
+    "@angular/cli": "~12.2.18",
     "@angular/compiler-cli": "~12.2.17",
     "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
