@@ -1,6 +1,6 @@
 import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TicketSupport, Chat } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
@@ -17,8 +17,8 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('scrollMe', { static: false }) private myScrollContainer: ElementRef;
   subs: Subscription[] = [];
 
-  myForm: FormGroup;
-  myFormChat: FormGroup;
+  myForm: UntypedFormGroup;
+  myFormChat: UntypedFormGroup;
 
   o = new TicketSupport();
   idTicket = 0;
@@ -38,7 +38,7 @@ export class UpdateComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(
     // public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
-    private route: ActivatedRoute, private fb: FormBuilder
+    private route: ActivatedRoute, private fb: UntypedFormBuilder
     , private uow: UowService, private router: Router
     , public session: SessionService, private chatHub: ChatHubService) { }
 

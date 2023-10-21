@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, UntypedFormGroup, UntypedFormBuilder, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/models';
 import { UowService } from 'src/app/services/uow.service';
@@ -14,12 +14,12 @@ import { SnackBarService } from 'src/app/loader/snack-bar.service';
   // animations: anime
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  myForm: FormGroup;
+  myForm: UntypedFormGroup;
   o = new User();
   hide = true;
 
   code = '';
-  constructor(private fb: FormBuilder, private uow: UowService
+  constructor(private fb: UntypedFormBuilder, private uow: UowService
     , private router: Router, public session: SessionService
     , private route: ActivatedRoute, public snackBar: SnackBarService) { }
 

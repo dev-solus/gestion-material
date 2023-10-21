@@ -1,6 +1,6 @@
 import { UowService } from 'src/app/services/uow.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EquipementInfo } from 'src/app/models/models';
 import { Subject, Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class UpdateComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
-  myForm: FormGroup;
+  myForm: UntypedFormGroup;
   o: EquipementInfo;
   title = '';
 
@@ -25,7 +25,7 @@ export class UpdateComponent implements OnInit, OnDestroy {
 
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any
-    , private fb: FormBuilder, private uow: UowService, protected sanitizer: DomSanitizer) { }
+    , private fb: UntypedFormBuilder, private uow: UowService, protected sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.o = this.data.model;

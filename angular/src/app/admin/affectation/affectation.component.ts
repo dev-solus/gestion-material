@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Affectation } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -34,11 +34,11 @@ export class AffectationComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  action = new FormControl('');
-  idEquipement = new FormControl(0);
-  idEmplacement = new FormControl(0);
-  idCollaborateur = new FormControl(0);
-  idAgentSi = new FormControl(0);
+  action = new UntypedFormControl('');
+  idEquipement = new UntypedFormControl(0);
+  idEmplacement = new UntypedFormControl(0);
+  idCollaborateur = new UntypedFormControl(0);
+  idAgentSi = new UntypedFormControl(0);
 
 
   equipements = this.uow.equipements.get();

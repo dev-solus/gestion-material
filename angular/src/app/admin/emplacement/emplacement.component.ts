@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Emplacement } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -33,8 +33,8 @@ export class EmplacementComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  codeEmplacement = new FormControl('');
-idDepartement = new FormControl(0);
+  codeEmplacement = new UntypedFormControl('');
+idDepartement = new UntypedFormControl(0);
 
 
   departements = this.uow.departements.get();

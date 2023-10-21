@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { UowService } from 'src/app/services/uow.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionService } from 'src/app/shared';
@@ -12,15 +12,15 @@ import { SnackBarService } from 'src/app/loader/snack-bar.service';
   styleUrls: ['./reset.component.scss']
 })
 export class ResetComponent implements OnInit {
-  myForm: FormGroup;
+  myForm: UntypedFormGroup;
   o = new User();
   code = '';
   hide = true;
   hide2 = true;
-  checkPassword = new FormControl('', [Validators.required]);
+  checkPassword = new UntypedFormControl('', [Validators.required]);
   isEmailChecked = false;
 
-  constructor(private fb: FormBuilder, private uow: UowService
+  constructor(private fb: UntypedFormBuilder, private uow: UowService
     , private router: Router, public session: SessionService
     , private route: ActivatedRoute, public snackBar: SnackBarService) { }
 

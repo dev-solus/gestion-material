@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { TicketSupport } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { SessionService } from 'src/app/shared';
 
@@ -34,9 +34,9 @@ export class TicketSupportComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  question = new FormControl('');
-  priorite = new FormControl('');
-  idCollaborateur = new FormControl(0);
+  question = new UntypedFormControl('');
+  priorite = new UntypedFormControl('');
+  idCollaborateur = new UntypedFormControl(0);
 
 
   collaborateurs = this.uow.users.get();

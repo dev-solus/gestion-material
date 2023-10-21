@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Fournisseur } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -33,10 +33,10 @@ export class FournisseurComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  nom = new FormControl('');
-tel = new FormControl('');
-fax = new FormControl('');
-email = new FormControl('');
+  nom = new UntypedFormControl('');
+tel = new UntypedFormControl('');
+fax = new UntypedFormControl('');
+email = new UntypedFormControl('');
 
 
 

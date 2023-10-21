@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { User } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -33,14 +33,14 @@ export class UserComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  nom = new FormControl('');
-  matricule = new FormControl('');
-  prenom = new FormControl('');
-  email = new FormControl('');
-  codeOfVerification = new FormControl('');
-  idService = new FormControl(0);
-  idFonction = new FormControl(0);
-  idRole = new FormControl(0);
+  nom = new UntypedFormControl('');
+  matricule = new UntypedFormControl('');
+  prenom = new UntypedFormControl('');
+  email = new UntypedFormControl('');
+  codeOfVerification = new UntypedFormControl('');
+  idService = new UntypedFormControl(0);
+  idFonction = new UntypedFormControl(0);
+  idRole = new UntypedFormControl(0);
 
 
   services = this.uow.services.get();

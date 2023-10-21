@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Equipement } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -33,17 +33,17 @@ export class EquipementComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  nSerie = new FormControl('');
-  model = new FormControl('');
-  refAchat = new FormControl('');
-  etatActuel = new FormControl('');
-  prixUnitaireHT = new FormControl(0);
-  nInventaire = new FormControl('');
-  remarques = new FormControl('');
-  idConstucteur = new FormControl(0);
-  idCategorie = new FormControl(0);
-  idStatut = new FormControl(0);
-  idFournisseur = new FormControl(0);
+  nSerie = new UntypedFormControl('');
+  model = new UntypedFormControl('');
+  refAchat = new UntypedFormControl('');
+  etatActuel = new UntypedFormControl('');
+  prixUnitaireHT = new UntypedFormControl(0);
+  nInventaire = new UntypedFormControl('');
+  remarques = new UntypedFormControl('');
+  idConstucteur = new UntypedFormControl(0);
+  idCategorie = new UntypedFormControl(0);
+  idStatut = new UntypedFormControl(0);
+  idFournisseur = new UntypedFormControl(0);
 
 
   constucteurs = this.uow.constucteurs.get();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { UowService } from 'src/app/services/uow.service';
 import { SessionService } from 'src/app/shared';
 import { Router } from '@angular/router';
@@ -12,13 +12,13 @@ import { SnackBarService } from 'src/app/loader/snack-bar.service';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit {
-  myForm: FormGroup;
+  myForm: UntypedFormGroup;
   o = new User();
   hide = true;
   hide2 = true;
-  checkPassword = new FormControl('', [Validators.required]);
+  checkPassword = new UntypedFormControl('', [Validators.required]);
 
-  constructor(private fb: FormBuilder, private uow: UowService
+  constructor(private fb: UntypedFormBuilder, private uow: UowService
     , private router: Router, public session: SessionService
     , public snackBar: SnackBarService) { }
 

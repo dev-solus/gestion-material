@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Fonction } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -33,7 +33,7 @@ export class FonctionComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  nom = new FormControl('');
+  nom = new UntypedFormControl('');
 
 
 

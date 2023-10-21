@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteService } from 'src/app/components/delete/delete.service';
 import { Chat } from 'src/app/models/models';
 import { ExcelService } from 'src/app/shared/excel.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 
 @Component({
@@ -33,10 +33,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   panelOpenState = false;
 
-  idSender = new FormControl(0);
-idReceiver = new FormControl(0);
-message = new FormControl('');
-idTicketSupport = new FormControl(0);
+  idSender = new UntypedFormControl(0);
+idReceiver = new UntypedFormControl(0);
+message = new UntypedFormControl('');
+idTicketSupport = new UntypedFormControl(0);
 
 
   senders = this.uow.users.get();
