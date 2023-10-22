@@ -2,7 +2,7 @@
 node {
   def apps = [
     [name: "manage-material-api", port: '5000', exposed_port: '', path: 'api', domaine: "api.manage-material.dev-solus.com", domaine_prefix: ''],
-    [name: "manage-material.", port: '4000', exposed_port: '', path: 'angular', domaine: "manage-material.dev-solus.com", domaine_prefix: ''],
+    [name: "manage-material", port: '4000', exposed_port: '', path: 'angular', domaine: "manage-material.dev-solus.com", domaine_prefix: ''],
   ];
 
   def app
