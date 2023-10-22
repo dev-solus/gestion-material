@@ -57,12 +57,12 @@ node {
         }
       }
 
+          // --volume /home/dev/volumes/${e.name}/db:/app/db \
       if (e.exposed_port == "") {
          sh """docker run -d \
           --restart unless-stopped \
           --network proxy \
           --volume /home/dev/volumes/${e.name}/wwwroot:/app/wwwroot \
-          --volume /home/dev/volumes/${e.name}/db:/app/db \
           --label traefik.enable=true \
           --label traefik.http.routers.${e.name}.tls=true \
           --label traefik.http.routers.${e.name}.tls.certresolver=letsencrypt \
