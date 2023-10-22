@@ -7,10 +7,10 @@ node {
 
   def app
 
-  stage('Initialize'){
-      def dockerHome = tool 'myDocker'
-      env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
+  // stage('Initialize'){
+  //     def dockerHome = tool 'myDocker'
+  //     env.PATH = "${dockerHome}/bin:${env.PATH}"
+  //   }
 
   stage('Cloning Git') {
     def commit = checkout scm
