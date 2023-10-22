@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HubConnectionBuilder, HubConnection, IHttpConnectionOptions, LogLevel } from '@microsoft/signalr';
 import { Subject } from 'rxjs';
-import { Chat } from '../Models/models';
+import { Chat } from '../models/models';
 import { SessionService } from '../shared';
 
 @Injectable({

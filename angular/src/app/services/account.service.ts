@@ -1,6 +1,6 @@
 import { SuperService } from './super.service';
 import { Injectable } from '@angular/core';
-import { User } from '../Models/models';
+import { User } from '../models/models';
 
 
 @Injectable({
