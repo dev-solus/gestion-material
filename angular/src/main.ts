@@ -14,11 +14,11 @@ const providers: StaticProvider[] = [
   // { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
   {
     provide: 'BASE_URL',
-    useValue: environment.production ? 'api.manage-material.dev-solus.com' : url
+    useValue: environment.production ? 'https://api.manage-material.dev-solus.com' : url
   },
   {
     provide: 'API_URL',
-    useValue: environment.production ? `api.manage-material.dev-solus.com/api` : apiUrl
+    useValue: environment.production ? `https://api.manage-material.dev-solus.com/api` : apiUrl
   }
 ];
 
