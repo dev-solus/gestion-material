@@ -153,14 +153,14 @@ var app = builder.Build();
     app.UseHsts();
     app.UseStaticFiles();
 
-    var provider = new FileExtensionContentTypeProvider();
-            provider.Mappings.Add(".exe", "application/octect-stream");
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                ServeUnknownFileTypes = true, //allow unkown file types also to be served
-                // DefaultContentType = "Whatver you want eg: plain/text" //content type to returned if fileType is not known.
-                ContentTypeProvider = provider
-            });
+    // var provider = new FileExtensionContentTypeProvider();
+    //         provider.Mappings.Add(".exe", "application/octect-stream");
+    //         app.UseStaticFiles(new StaticFileOptions
+    //         {
+    //             ServeUnknownFileTypes = true, //allow unkown file types also to be served
+    //             // DefaultContentType = "Whatver you want eg: plain/text" //content type to returned if fileType is not known.
+    //             ContentTypeProvider = provider
+    //         });
 
     app.MapControllers();
 
